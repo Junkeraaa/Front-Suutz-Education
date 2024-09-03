@@ -1,22 +1,34 @@
-import suutzLogo from '../assets/svg/suutzLogo.svg'
+import suutzLogo from '../assets/logo.svg'
 import dashboardLogo from '../assets/svg/dashboardLogo.svg'
 import minhasTurmasLogo from '../assets/svg/minhasTurmasLogo.svg'
-import 
+import brokerLogo from '../assets/svg/brokerLogo.svg'
+import settingsLogo from '../assets/svg/settingsLogo.svg'
+import signOutLogo from '../assets/svg/signOutLogo.svg'
 
 const MainHeaderLeft = () => {
   return (
     <div style={styles.container}>
-      <div style={styles.titleLogo}>
-        <img src={suutzLogo} style={styles.logo}/>
-      </div>
       <div>
-        <button style={styles.btnDashboard}><img src={dashboardLogo} style={styles.dLogo}></img>Dashboard</button>
+        <div style={styles.titleLogo}>
+          <img src={suutzLogo} style={styles.logo}/>
+        </div>
+        <div>
+          <button style={styles.btnDashboard}><img src={dashboardLogo} style={styles.dLogo}></img>Dashboard</button>
+        </div>
+        <div style={styles.menu}>
+        <img src={minhasTurmasLogo} style={styles.dLogo}/> Minhas turmas
+        </div>
+        <div style={styles.menu}>
+        <img src={brokerLogo} style={styles.dLogo}/> Broker oficial
+        </div>
       </div>
-      <div style={styles.menu}>
-      <img src={minhasTurmasLogo} style={styles.dLogo}/> Minhas turmas
-      </div>
-      <div style={styles.menu}>
-      <img src={minhasTurmasLogo} style={styles.dLogo}/> Broker Oficial
+      <div style={styles.rodape}>
+        <div style={styles.menu}>
+          <img src={settingsLogo} style={styles.dLogo}/> Settings
+          </div>
+        <div style={styles.menu}>
+          <img src={signOutLogo} style={styles.dLogo}/> Sign out
+        </div>
       </div>
     </div>
   );
@@ -26,11 +38,12 @@ const styles = {
   container: {
     fontFamily:'freeMono',
     color:"white",
-    fontSize:'20x',
+    fontSize:'25px',
     fontWeigth:"bold",
     backgroundColor: '#040404',
     display: 'flex',
     flexDirection: "column",
+    justifyContent:"space-between",
     height: '100vh',
     width: '16vw'
   },
@@ -58,6 +71,9 @@ const styles = {
   menu:{
     marginTop:"1vw",
     marginLeft:"2vw"
+  },
+  rodape:{
+    marginBottom:"2vw"
   }
 };
 
