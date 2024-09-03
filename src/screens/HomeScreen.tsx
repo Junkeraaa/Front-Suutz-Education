@@ -7,12 +7,15 @@ const HomeScreen = () => {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Suutz Educatio</h1>
+      <h1 style={styles.title}>Suutz Education</h1>
       <button onClick={() => navigate('/login')} style={styles.button}>
         Login
       </button>
       <button onClick={() => navigate('/register')} style={styles.button}>
         Cadastro
+      </button>
+      <button onClick={() => navigate('/myClasses')} style={styles.button}>
+        Minhas classes
       </button>
     </div>
   );
