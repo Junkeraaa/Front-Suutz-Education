@@ -1,17 +1,19 @@
-// src/screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LoginScreen = () => {
-  const [username, setUsername] = useState('');
+const RegisterScreen = () => {
+  const [name, setName] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loginAsTeacher, setLoginAsTeacher] = useState(false);
+  const [registerAsTeacher, setRegisterAsTeacher] = useState(false);
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    const url = loginAsTeacher
-      ? 'http://localhost:3000/api/auth/registerTeacher'
-      : 'http://localhost:3000/api/auth/registerStudent';
+  const handleRegister = async () => {
+    const url = registerAsTeacher
+      ? 'http://localhost:8080/registerProfessor'
+      : 'http://localhost:3000/api/auth/registerAsStudent';
 
     try {
       const response = await fetch(url, {
@@ -19,74 +21,113 @@ const LoginScreen = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ name, cpf, email, password }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        alert('Login realizado com sucesso!');
-        // Redirecione para a próxima página ou realize outra ação
+        alert('Registro realizado com sucesso!');
+        sessionStorage.setItem('token', data.token); // Armazenar o token na sessão
+        navigate('/login'); // Redirecionar para a nova página
       } else {
-        alert('Falha no login. Verifique suas credenciais.');
+        setShowError(true);
+        setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
       }
     } catch (error) {
-      console.error('Erro durante o login:', error);
-      alert('Erro de conexão. Tente novamente mais tarde.');
+      console.error('Erro durante o Registro:', error);
+      setShowError(true);
+      setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleRegister();
     }
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} onKeyDown={handleKeyPress}>
+      {showError && <img src="/src/assets/errorRegister.svg" alt="Erro de Cadastro" style={styles.errorImage} />}
+
       {/* Fundo com a imagem */}
       <div style={styles.background} />
 
       {/* Conteúdo central */}
       <div style={styles.content}>
-        <h2 style={styles.title}>Sign In</h2>
+        <h2 style={styles.title}>Sign Up</h2>
+
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           style={styles.input}
         />
+
+        <input
+          type="text"
+          placeholder="CPF"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
+          style={styles.input}
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={styles.input}
+        />
+
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           style={styles.input}
         />
+
         <div style={styles.checkboxContainer}>
           <input
             type="checkbox"
-            checked={loginAsTeacher}
-            onChange={() => setLoginAsTeacher(!loginAsTeacher)}
+            checked={registerAsTeacher}
+            onChange={() => setRegisterAsTeacher(!registerAsTeacher)}
             style={styles.checkbox}
           />
-          <label style={styles.checkboxLabel}>Cadastro como professor</label>
+          <label style={styles.checkboxLabel}>Registro como professor</label>
         </div>
 
         <p style={styles.infoText}>Já possui cadastro?</p>
-        <p style={styles.registerText}>Entre agora mesmo.</p>
-        <button onClick={() => navigate('/login')} style={styles.registerButton}>
-          Login
-        </button>
+        <p
+          style={styles.registerText}
+          onClick={() => navigate('/login')}
+        >
+          Entre agora mesmo.
+        </p>
 
-        <button onClick={handleLogin} style={styles.loginButton}>
+        <button onClick={handleRegister} style={styles.registerButton}>
           Sign Up
         </button>
       </div>
 
-        {/* Texto no canto superior esquerdo */}
-        <h1 style={styles.headerTitle}>Suutz Education</h1>
+      {/* Imagem do logo clicável no canto superior esquerdo */}
+      <img
+        src="/src/assets/logo.svg"
+        alt="Logo Suutz Education"
+        style={styles.logo}
+        onClick={() => navigate('/')}
+      />
 
-        {/* Texto no canto inferior esquerdo */}
-        <p style={styles.bottomText}>Sign up to go from zero to billion.</p>
+      {/* Texto no canto inferior esquerdo */}
+      <p style={styles.bottomText}>Sign up to go from zero to billion.</p>
     </div>
   );
 };
 
-// Estilos para a tela de login
+// Estilos para a tela de cadastro
 const styles: Record<string, React.CSSProperties> = {
   container: {
     display: 'flex',
@@ -153,20 +194,12 @@ const styles: Record<string, React.CSSProperties> = {
   },
   registerText: {
     fontSize: '0.9rem',
-    color: '#ffffff',
+    color: '#ff0000',
     cursor: 'pointer',
+    textDecoration: 'underline',
   },
   registerButton: {
     marginTop: '10px',
-    background: 'none',
-    border: 'none',
-    color: '#ff0000',
-    cursor: 'pointer',
-    fontSize: '1rem',
-    textDecoration: 'underline',
-  },
-  loginButton: {
-    marginTop: '20px',
     padding: '10px 20px',
     fontSize: '1rem',
     borderRadius: '5px',
@@ -175,13 +208,12 @@ const styles: Record<string, React.CSSProperties> = {
     border: 'none',
     cursor: 'pointer',
   },
-  headerTitle: {
+  logo: {
     position: 'absolute',
     top: '20px',
     left: '20px',
-    fontSize: '1.5rem',
-    color: '#ffffff',
-    fontWeight: 'bold',
+    width: '150px',
+    cursor: 'pointer',
   },
   bottomText: {
     position: 'absolute',
@@ -190,6 +222,12 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: '1rem',
     color: '#ffffff',
   },
+  errorImage: {
+    position: 'absolute',
+    top: '10px',
+    width: '300px',
+    zIndex: 2,
+  },
 };
 
-export default LoginScreen;
+export default RegisterScreen;
