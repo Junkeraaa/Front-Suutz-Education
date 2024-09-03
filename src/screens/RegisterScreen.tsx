@@ -10,8 +10,8 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     const url = loginAsTeacher
-      ? 'http://localhost:8080/loginProfessor'
-      : 'http://localhost:8080/loginNormal';
+      ? 'http://localhost:3000/api/auth/registerTeacher'
+      : 'http://localhost:3000/api/auth/registerStudent';
 
     try {
       const response = await fetch(url, {

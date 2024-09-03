@@ -6,12 +6,13 @@ const LoginScreen = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginAsTeacher, setLoginAsTeacher] = useState(false);
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     const url = loginAsTeacher
       ? 'http://localhost:8080/loginProfessor'
-      : 'http://localhost:8080/loginNormal';
+      : 'http://localhost:3000/api/auth/loginAsStudent';
 
     try {
       const response = await fetch(url, {
@@ -22,20 +23,33 @@ const LoginScreen = () => {
         body: JSON.stringify({ username, password }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         alert('Login realizado com sucesso!');
-        // Redirecione para a próxima página ou realize outra ação
+        sessionStorage.setItem('token', data.token); // Armazenar o token na sessão
+        navigate('/minhas-turmas'); // Redirecionar para a nova página
       } else {
-        alert('Falha no login. Verifique suas credenciais.');
+        setShowError(true);
+        setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
       }
     } catch (error) {
       console.error('Erro durante o login:', error);
-      alert('Erro de conexão. Tente novamente mais tarde.');
+      setShowError(true);
+      setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleLogin();
     }
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} onKeyDown={handleKeyPress}>
+      {showError && <img src="/src/assets/errorLogin.svg" alt="Erro de Login" style={styles.errorImage} />}
+
       {/* Fundo com a imagem */}
       <div style={styles.background} />
 
@@ -77,11 +91,16 @@ const LoginScreen = () => {
         </button>
       </div>
 
-        {/* Texto no canto superior esquerdo */}
-        <h1 style={styles.headerTitle}>Suutz Education</h1>
+      {/* Imagem do logo clicável no canto superior esquerdo */}
+      <img
+        src="/src/assets/logo.svg"
+        alt="Logo Suutz Education"
+        style={styles.logo}
+        onClick={() => navigate('/')}
+      />
 
-        {/* Texto no canto inferior esquerdo */}
-        <p style={styles.bottomText}>Sign up to go from zero to billion.</p>
+      {/* Texto no canto inferior esquerdo */}
+      <p style={styles.bottomText}>Sign up to go from zero to billion.</p>
     </div>
   );
 };
@@ -175,13 +194,12 @@ const styles: Record<string, React.CSSProperties> = {
     border: 'none',
     cursor: 'pointer',
   },
-  headerTitle: {
+  logo: {
     position: 'absolute',
     top: '20px',
     left: '20px',
-    fontSize: '1.5rem',
-    color: '#ffffff',
-    fontWeight: 'bold',
+    width: '150px',
+    cursor: 'pointer',
   },
   bottomText: {
     position: 'absolute',
@@ -189,6 +207,12 @@ const styles: Record<string, React.CSSProperties> = {
     left: '20px',
     fontSize: '1rem',
     color: '#ffffff',
+  },
+  errorImage: {
+    position: 'absolute',
+    top: '10px',
+    width: '300px',
+    zIndex: 2,
   },
 };
 

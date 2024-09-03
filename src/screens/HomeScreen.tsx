@@ -63,11 +63,13 @@ const styles: Record<string, React.CSSProperties> = {
     padding: '10px 20px',
     backgroundColor: '#ffffff',
     borderBottom: '1px solid #e0e0e0',
+    fontFamily: 'serif',
   },
   logo: {
     margin: 0,
     fontSize: '1.5rem',
     fontWeight: 'bold',
+    fontFamily: 'serif',
   },
   nav: {
     display: 'flex',
@@ -114,6 +116,7 @@ const styles: Record<string, React.CSSProperties> = {
     zIndex: 1,
     color: '#ffffff',
     padding: '0 20px',
+    fontFamily: 'serif',
   },
   title: {
     fontSize: '2rem',
@@ -128,8 +131,9 @@ const styles: Record<string, React.CSSProperties> = {
     padding: '10px 20px',
     fontSize: '1rem',
     borderRadius: '20px',
-    backgroundColor: '#007bff',
-    color: '#ffffff',
+    backgroundColor: '#ffffff',
+    color: '#000000',
+    fontFamily: 'serif',
     border: 'none',
     cursor: 'pointer',
   },
