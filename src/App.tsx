@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import MyClassesScreen from './screens/MyClassesScreen';
+import InsideClass from './screens/InsideClass';
 
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/myClasses" element={<MyClassesScreen />} />
+      <Route path="/insideClass" element={<InsideClass />} />
     </Routes>
   );
 };
