@@ -32,8 +32,6 @@ const styles = {
     myClasses:{
       display:"flex",
       flexDirection:"column",
-      width:"84vw",
-      heigth:"100vh",
       fontFamily:"freeMono",
       fontWeigth:"bold"
     },

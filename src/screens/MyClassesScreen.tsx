@@ -1,3 +1,4 @@
+import AulasDisponiveis from '../components/AulasDisponiveis';
 import MainHeaderLeft from '../components/MainHeaderLeft';
 import MyClassesHeaderBar from '../components/MyClassesHeaderBar'
 
@@ -22,6 +23,7 @@ const styles = {
     display: 'flex',
     flexDirection:"row",
     justifyContent: 'center',
+    boxSizing:"border-box"
   },
   title: {
     fontSize: '2rem',
@@ -35,7 +37,8 @@ const styles = {
     fontWeigth:"bold"
   },
   dashboard:{
-
+    display:"flex",
+    flexDirection:"row"
   }
 
 };
