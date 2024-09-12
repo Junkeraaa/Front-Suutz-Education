@@ -1,5 +1,6 @@
 import MainHeaderLeft from '../components/MainHeaderLeft';
 import MyClassesHeaderBar from '../components/MyClassesHeaderBar'
+import AulasDisponiveis from '../components/AulasDisponiveis';
 
 
 const InsideClass = () => {
@@ -9,7 +10,7 @@ const InsideClass = () => {
         <div style={styles.insideClass}>
           <MyClassesHeaderBar/>
           <div style={styles.dashboard}>
-            
+            <AulasDisponiveis/>
           </div>
         </div>
     </div>

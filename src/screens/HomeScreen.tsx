@@ -18,8 +18,11 @@ const HomeScreen = () => {
         Minhas classes
       </button>
       <button onClick={() => navigate('/insideClass')} style={styles.button}>
-        Dentro da aula
+        Dentro da Classe
       </button>
+      {/* <button onClick={() => navigate('/insideClassLesson')} style={styles.button}>
+        Dentro da aula
+      </button> */}
     </div>
   );
 };
