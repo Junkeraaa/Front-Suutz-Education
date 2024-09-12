@@ -1,4 +1,5 @@
 import mGlassLogo from '../assets/svg/mGlassLogo.svg'
+import '../global.css'; 
 
 const MyClassesHeaderBar = () => {
   return (
@@ -32,6 +33,8 @@ const styles = {
     myClasses:{
       display:"flex",
       flexDirection:"column",
+      width:"84vw",
+      heigth:"100vh",
       fontFamily:"freeMono",
       fontWeigth:"bold"
     },

@@ -1,4 +1,4 @@
-
+import '../global.css'; 
 
 
 const AulasDisponiveis = () => {
@@ -11,30 +11,61 @@ const AulasDisponiveis = () => {
           </div>  
           <p style={styles.p}>A bolsa de valores é um mercado organizado onde ações, títulos e outros ativos financeiros são comprados e vendidos, servindo como um barômetro da economia. Os preços das ações são determinados pela oferta e demanda, influenciados por fatores como resultados financeiros das empresas, taxas de juros, inflação, e eventos políticos ou econômicos. Investidores utilizam</p>
         </div>
+        <div style={styles.cardAula}>
+          <div style={styles.cardAulaHeader}>
+            Aula 1 - Bolsa de valores do zero
+          </div>  
+          <p style={styles.p}>A bolsa de valores é um mercado organizado onde ações, títulos e outros ativos financeiros são comprados e vendidos, servindo como um barômetro da economia. Os preços das ações são determinados pela oferta e demanda, influenciados por fatores como resultados financeiros das empresas, taxas de juros, inflação, e eventos políticos ou econômicos. Investidores utilizam</p>
+        </div>
+        <div style={styles.cardAula}>
+          <div style={styles.cardAulaHeader}>
+            Aula 1 - Bolsa de valores do zero
+          </div>  
+          <p style={styles.p}>A bolsa de valores é um mercado organizado onde ações, títulos e outros ativos financeiros são comprados e vendidos, servindo como um barômetro da economia. Os preços das ações são determinados pela oferta e demanda, influenciados por fatores como resultados financeiros das empresas, taxas de juros, inflação, e eventos políticos ou econômicos. Investidores utilizam</p>
+        </div>
+        <div style={styles.cardAula}>
+          <div style={styles.cardAulaHeader}>
+            Aula 1 - Bolsa de valores do zero
+          </div>  
+          <p style={styles.p}>A bolsa de valores é um mercado organizado onde ações, títulos e outros ativos financeiros são comprados e vendidos, servindo como um barômetro da economia. Os preços das ações são determinados pela oferta e demanda, influenciados por fatores como resultados financeiros das empresas, taxas de juros, inflação, e eventos políticos ou econômicos. Investidores utilizam</p>
+        </div>
+        <div style={styles.cardAula}>
+          <div style={styles.cardAulaHeader}>
+            Aula 1 - Bolsa de valores do zero
+          </div>  
+          <p style={styles.p}>A bolsa de valores é um mercado organizado onde ações, títulos e outros ativos financeiros são comprados e vendidos, servindo como um barômetro da economia. Os preços das ações são determinados pela oferta e demanda, influenciados por fatores como resultados financeiros das empresas, taxas de juros, inflação, e eventos políticos ou econômicos. Investidores utilizam</p>
+        </div>
       </div>
     );
   };
   
   const styles = {
     container: {
+      color:'black',
       display: 'flex',
       flexDirection:"column",
       height:"90vh",
       width:"65vw",
       justifyContent: 'center',
+       paddingLeft:"1vw"
     },
     cardAula:{
       display:"flex",
       flexDirection:"column",
       width:"60vw",
       height:"14vh",
-      border:"1px solid black",
+      border:"2px solid",
       borderRadius:"10px",
-      backgroundColor:"green",
-      justifyContent:"center"
+      borderColor:"#8d8d8d",
+      backgroundColor:"#ededed",
+      justifyContent:"center",
+      marginTop:"1vh",
+      paddingLeft:"0.5vw"
     },
     cardAulaHeader:{
-      height:"2vh"
+      fontSize:"30px",
+      fontWeight:"bold",
+      height:"3vh"
     },
     p: {
       overflow: "hidden", // Impede o estouro do texto

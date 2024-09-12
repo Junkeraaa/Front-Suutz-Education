@@ -1,6 +1,6 @@
 import MainHeaderLeft from '../components/MainHeaderLeft';
 import MyClassesHeaderBar from '../components/MyClassesHeaderBar'
-
+import '../global.css'; 
 
 const InsideClassLesson = () => {
   return (

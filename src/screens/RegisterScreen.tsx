@@ -1,6 +1,7 @@
 // src/screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../global.css'; 
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');

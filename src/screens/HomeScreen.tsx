@@ -1,6 +1,7 @@
 // src/screens/HomeScreen.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../global.css'; 
 
 const HomeScreen = () => {
   const navigate = useNavigate();

@@ -1,6 +1,8 @@
 import MainHeaderLeft from '../components/MainHeaderLeft';
 import MyClassesHeaderBar from '../components/MyClassesHeaderBar'
 import AulasDisponiveis from '../components/AulasDisponiveis';
+import ClassMembers from '../components/ClassMembers';
+import '../global.css'; 
 
 
 const InsideClass = () => {
@@ -11,6 +13,7 @@ const InsideClass = () => {
           <MyClassesHeaderBar/>
           <div style={styles.dashboard}>
             <AulasDisponiveis/>
+            <ClassMembers/>
           </div>
         </div>
     </div>
@@ -22,6 +25,7 @@ const styles = {
     display: 'flex',
     flexDirection:"row",
     justifyContent: 'center',
+    boxSizing:'border-box'
   },
   title: {
     fontSize: '2rem',
@@ -32,10 +36,13 @@ const styles = {
     width:"84vw",
     heigth:"100vh",
     fontFamily:"freeMono",
-    fontWeigth:"bold"
+    fontWeigth:"bold",
+    boxSizing:'border-box'
   },
   dashboard:{
-
+    display:"flex",
+    flexDirection:"row",
+    boxSizing:'border-box'
   }
 
 };

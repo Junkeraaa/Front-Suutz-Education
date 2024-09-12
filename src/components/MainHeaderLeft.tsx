@@ -4,6 +4,7 @@ import minhasTurmasLogo from '../assets/svg/minhasTurmasLogo.svg'
 import brokerLogo from '../assets/svg/brokerLogo.svg'
 import settingsLogo from '../assets/svg/settingsLogo.svg'
 import signOutLogo from '../assets/svg/signOutLogo.svg'
+import '../global.css'; 
 
 const MainHeaderLeft = () => {
   return (
