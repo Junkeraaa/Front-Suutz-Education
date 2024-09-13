@@ -15,13 +15,41 @@ const MyClassesScreen = () => {
           <MyClassesHeaderBar/>
           <div style={styles.dashboard}>
             <div style={styles.class}>
+              <div>
               <div style={styles.classHeader}>
                 Classe Senac
               </div>
+              <p>Professor Junker</p>
+              </div>
+              <div style={styles.classFooter}>
+                <div>10 aulas disponíveis</div>
+                <div>47 alunos</div>
+              </div>
             </div>
             <div style={styles.class}>
-              oi
-            </div>
+              <div>
+              <div style={styles.classHeader}>
+                Classe Senac
+              </div>
+              <p>Professor Junker</p>
+              </div>
+              <div style={styles.classFooter}>
+                <div>10 aulas disponíveis</div>
+                <div>47 alunos</div>
+              </div>
+            </div> 
+            <div style={styles.class}>
+              <div>
+              <div style={styles.classHeader}>
+                Classe Senac
+              </div>
+              <p>Professor Junker</p>
+              </div>
+              <div style={styles.classFooter}>
+                <div>10 aulas disponíveis</div>
+                <div>47 alunos</div>
+              </div>
+            </div>        
           </div>
         </div>
     </div>
@@ -48,13 +76,15 @@ const styles = {
   },
   dashboard:{
     display:"flex",
+    flexWrap:'wrap',
     flexDirection:"row",
     marginLeft:"0.5vw",
     marginTop:"2vh"
   },
   class:{
     display:"flex",
-    flexDirection:"row",
+    flexDirection:"column",
+    justifyContent:"space-between",
     backgroundColor:"#ededed",
     border:"1px solid",
     borderRadius:"15px",
@@ -62,13 +92,23 @@ const styles = {
     width:"40vw",
     height:"40vh",
     marginLeft:"1vw",
+    paddingLeft:"0.5vw",
+    paddingRight:"0.5vw",
+    marginBottom:"2vh"
   },
   classHeader:{
     color:'black',
     fontSize:"40px",
     fontWeigth:"bold",
-
-  }
+  },
+  classFooter:{
+    color:'black',
+    fontSize:"20px",
+    fontWeigth:"bold",
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-between",
+  },
 
 };
 

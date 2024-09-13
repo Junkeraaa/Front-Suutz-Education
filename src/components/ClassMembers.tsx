@@ -1,9 +1,11 @@
 import '../global.css'; 
+import SideBar from './SideBar';
 
 const ClassMembers = () => {
   return (
     <div style={styles.container}>
-        <div style={styles.leftBar}>.</div>
+        <SideBar/>
+        {/* <div style={styles.leftBar}>.</div> */}
         <div style={styles.classMembers}>
             <h2 style={styles.h2}>Membros da turma</h2>
             <div style={styles.membroBox}>
