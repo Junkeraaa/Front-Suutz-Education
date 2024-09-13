@@ -48,7 +48,8 @@ const styles = {
   },
   lessonName: {
     fontSize: '35px',
-    fontWeight:'bold'
+    fontWeight:'bold',
+    color:"black"
   },
   lessonBody: {
     fontSize: '20px',

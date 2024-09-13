@@ -35,6 +35,7 @@ const AulasDisponiveis = () => {
           </div>  
           <p style={styles.p}>A bolsa de valores é um mercado organizado onde ações, títulos e outros ativos financeiros são comprados e vendidos, servindo como um barômetro da economia. Os preços das ações são determinados pela oferta e demanda, influenciados por fatores como resultados financeiros das empresas, taxas de juros, inflação, e eventos políticos ou econômicos. Investidores utilizam</p>
         </div>
+        
       </div>
     );
   };
