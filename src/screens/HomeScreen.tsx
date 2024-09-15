@@ -24,6 +24,9 @@ const HomeScreen = () => {
       <button onClick={() => navigate('/insideClassLesson')} style={styles.button}>
         Dentro da aula
       </button>
+      <button onClick={() => navigate('/brokerOficial')} style={styles.button}>
+       Broker oficial
+      </button>
     </div>
   );
 };
