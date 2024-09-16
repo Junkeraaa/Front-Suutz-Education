@@ -8,7 +8,7 @@ const MyClassesHeaderBar = () => {
           <div style={styles.cabecalho}>
               <div style={styles.headerLeft}>
                 <div>Minhas turmas</div>
-                <div style={styles.textUser}>Bem vindo! username</div>
+                <div style={styles.textUser}>Bem vindo! Luis</div>
               </div>
                 
               <div style={styles.headerRight}>

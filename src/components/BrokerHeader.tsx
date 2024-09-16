@@ -14,7 +14,7 @@ const BrokerHeader = () => {
                 <div style={styles.header}>
                 <div>Broker - Oficial</div>
                 {/* broker aula  */}
-                <div style={styles.textUser}>Bem vindo! username</div>
+                <div style={styles.textUser}>Bem vindo! Luis</div>
                 </div>
                 <SideBarBrokerHeader/>
                 <div style={styles.headerRight}>

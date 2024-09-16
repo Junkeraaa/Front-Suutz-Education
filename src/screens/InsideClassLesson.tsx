@@ -3,6 +3,7 @@ import MyClassesHeaderBar from '../components/MyClassesHeaderBar'
 import VerticalBar from '../components/VerticalBar';
 import '../global.css'; 
 import playButtonSvg from '../assets/svg/playButton.svg'
+import bovespaFoto from '../assets/bovespafoto.jpg'
 
 
 const InsideClassLesson = () => {
@@ -21,7 +22,7 @@ const InsideClassLesson = () => {
                 NYSE (New York Stock Exchange) - Estados Unidos
                 B3 (Brasil, Bolsa, Balcão) - Brasil
                 LSE (London Stock Exchange) - Reino Unido
-                {/* <img src="" alt="" /> */}
+                <img src={bovespaFoto} style={styles.bovespafoto} />
             </div>
             <div style={styles.lessonFooter}>
               <VerticalBar/>
@@ -87,6 +88,10 @@ const styles = {
     flexDirection:'row',
     alignItems:"center",
     height:"5vh"
+  },
+  bovespafoto:{
+    marginTop:"2vh",
+    width:"650px"
   }
 
 };

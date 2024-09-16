@@ -12,25 +12,25 @@ const ClassMembers = () => {
                 Jonas Silva
             </div>
             <div style={styles.membroBox}>
-                Jonas Silva
+                Luis Paulo
             </div>
             <div style={styles.membroBox}>
-                Jonas Silva
+                Lucas Junker
             </div>
             <div style={styles.membroBox}>
-                Jonas Silva
+                Gustavo Alves
             </div>
             <div style={styles.membroBox}>
-                Jonas Silva
+                Amanda
             </div>
             <div style={styles.membroBox}>
-                Jonas Silva
+                Fernando Miguel
             </div>
             <div style={styles.membroBox}>
-                Jonas Silva
+                Henrique
             </div>
             <div style={styles.membroBox}>
-                Jonas Silva
+                José
             </div>  
         </div>
     </div>

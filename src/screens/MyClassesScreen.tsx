@@ -4,34 +4,37 @@ import MyClassesHeaderBar from '../components/MyClassesHeaderBar'
 import classBackgroundImage from '../assets/svg/classBackground.svg'
 
 import '../global.css'; 
+import { useNavigate } from 'react-router-dom';
 
 
 
 const MyClassesScreen = () => {
+  const navigate = useNavigate()
+
   return (
     <div style={styles.container}>
         <MainHeaderLeft/>
         <div style={styles.myClasses}>
           <MyClassesHeaderBar/>
           <div style={styles.dashboard}>
-            <div style={styles.class}>
+            <div style={styles.class}  onClick={() => navigate('/insideClass')}>
               <div>
               <div style={styles.classHeader}>
                 Classe Senac
               </div>
-              <p>Professor Junker</p>
+              <p>Professor João</p>
               </div>
               <div style={styles.classFooter}>
-                <div>10 aulas disponíveis</div>
-                <div>47 alunos</div>
+                <div>5 aulas disponíveis</div>
+                <div>30 alunos</div>
               </div>
             </div>
             <div style={styles.class}>
               <div>
               <div style={styles.classHeader}>
-                Classe Senac
+                Classe Alura
               </div>
-              <p>Professor Junker</p>
+              <p>Professor Paulo</p>
               </div>
               <div style={styles.classFooter}>
                 <div>10 aulas disponíveis</div>
@@ -41,13 +44,13 @@ const MyClassesScreen = () => {
             <div style={styles.class}>
               <div>
               <div style={styles.classHeader}>
-                Classe Senac
+                Classe Empresa
               </div>
-              <p>Professor Junker</p>
+              <p>Professor Álvaro</p>
               </div>
               <div style={styles.classFooter}>
-                <div>10 aulas disponíveis</div>
-                <div>47 alunos</div>
+                <div>13 aulas disponíveis</div>
+                <div>2 alunos</div>
               </div>
             </div>        
           </div>

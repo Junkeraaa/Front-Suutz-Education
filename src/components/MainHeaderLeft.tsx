@@ -4,9 +4,12 @@ import minhasTurmasLogo from '../assets/svg/minhasTurmasLogo.svg'
 import brokerLogo from '../assets/svg/brokerLogo.svg'
 import settingsLogo from '../assets/svg/settingsLogo.svg'
 import signOutLogo from '../assets/svg/signOutLogo.svg'
+import { useNavigate } from 'react-router-dom';
 import '../global.css'; 
 
 const MainHeaderLeft = () => {
+  const navigate = useNavigate();
+
   return (
     <div style={styles.container}>
       <div>
@@ -19,7 +22,7 @@ const MainHeaderLeft = () => {
         <div style={styles.menu}>
         <img src={minhasTurmasLogo} style={styles.dLogo}/> Minhas turmas
         </div>
-        <div style={styles.menu}>
+        <div style={styles.menu} onClick={() => navigate('/brokerOficial')}>
         <img src={brokerLogo} style={styles.dLogo}/> Broker oficial
         </div>
       </div>

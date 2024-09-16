@@ -87,7 +87,7 @@ const LoginScreen = () => {
           Sign Up
         </button>
 
-        <button onClick={handleLogin} style={styles.loginButton}>
+        <button onClick={() => navigate('/myClasses')} style={styles.loginButton}>
           Login
         </button>
       </div>
