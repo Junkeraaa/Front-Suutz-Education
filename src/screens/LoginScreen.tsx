@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../global.css'; 
 
 const LoginScreen = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginAsTeacher, setLoginAsTeacher] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -12,8 +12,8 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     const url = loginAsTeacher
-      ? 'http://localhost:8080/loginProfessor'
-      : 'http://localhost:3000/api/auth/loginAsStudent';
+      ? 'http://localhost:3000/api/auth/login/teacher'
+      : 'http://localhost:3000/api/auth/login/customer';
 
     try {
       const response = await fetch(url, {
@@ -21,15 +21,16 @@ const LoginScreen = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
+
       if (response.ok) {
         alert('Login realizado com sucesso!');
         sessionStorage.setItem('token', data.token); // Armazenar o token na sessão
-        navigate('/minhas-turmas'); // Redirecionar para a nova página
+        navigate('/myClasses'); // Redirecionar para a nova página
       } else {
         setShowError(true);
         setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
@@ -59,9 +60,9 @@ const LoginScreen = () => {
         <h2 style={styles.title}>Login</h2>
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           style={styles.input}
         />
         <input
@@ -87,7 +88,7 @@ const LoginScreen = () => {
           Sign Up
         </button>
 
-        <button onClick={() => navigate('/myClasses')} style={styles.loginButton}>
+        <button onClick={handleLogin} style={styles.loginButton}>
           Login
         </button>
       </div>

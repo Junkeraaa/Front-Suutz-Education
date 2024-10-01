@@ -4,34 +4,43 @@ import { useNavigate } from 'react-router-dom';
 import '../global.css'; 
 
 const LoginScreen = () => {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [loginAsTeacher, setLoginAsTeacher] = useState(false);
+  const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     const url = loginAsTeacher
-      ? 'http://localhost:3000/api/auth/registerTeacher'
-      : 'http://localhost:3000/api/auth/registerStudent';
+      ? 'http://localhost:3000/api/auth/register/teacher'
+      : 'http://localhost:3000/api/auth/register/customer';
 
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        });
+  
+
+        
+      const data = await response.json();
 
       if (response.ok) {
         alert('Login realizado com sucesso!');
-        // Redirecione para a próxima página ou realize outra ação
+        sessionStorage.setItem('token', data.token); // Armazenar o token na sessão
+        navigate('/myClasses'); // Redirecionar para a nova página
       } else {
-        alert('Falha no login. Verifique suas credenciais.');
+        setShowError(true);
+        setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
       }
     } catch (error) {
       console.error('Erro durante o login:', error);
-      alert('Erro de conexão. Tente novamente mais tarde.');
+      setShowError(true);
+      setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
     }
   };
 
@@ -45,9 +54,16 @@ const LoginScreen = () => {
         <h2 style={styles.title}>Sign In</h2>
         <input
           type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={styles.input}
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           style={styles.input}
         />
         <input

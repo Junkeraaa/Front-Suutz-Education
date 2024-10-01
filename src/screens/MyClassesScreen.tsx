@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import AulasDisponiveis from '../components/AulasDisponiveis';
 import MainHeaderLeft from '../components/MainHeaderLeft';
 import MyClassesHeaderBar from '../components/MyClassesHeaderBar'
@@ -11,48 +12,77 @@ import { useNavigate } from 'react-router-dom';
 const MyClassesScreen = () => {
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(true);  // Estado para o carregamento
+  const [classes, setClasses] = useState([]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = sessionStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      try {
+        // Fazer a requisição ao backend com o token no cabeçalho
+        const response = await fetch('http://localhost:3000/api/class/listClassCards', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        // Verificar se a resposta foi bem-sucedida
+        if (!response.ok) {
+          throw new Error('Erro ao buscar os dados do usuário');
+        }
+
+        // Converter a resposta para JSON
+        const classes = await response.json();
+        setClasses(classes)
+        console.log('classes', classes, typeof(classes))
+        
+        // Atualizar o estado com os dados do usuário
+      } catch (error) {
+        console.error('Erro ao buscar os dados do usuário:', error);
+        // Opcionalmente, redirecionar para a página de login se o token for inválido
+        navigate('/login');
+      } finally {
+        setLoading(false);  // Desativar o estado de carregamento
+      }
+    };
+
+    // Chamar a função para buscar os dados do usuário
+    fetchUserData();
+  }, [navigate]);
+
+  // Renderizar uma mensagem de carregamento enquanto busca os dados
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
+  
+
   return (
     <div style={styles.container}>
         <MainHeaderLeft/>
         <div style={styles.myClasses}>
           <MyClassesHeaderBar/>
           <div style={styles.dashboard}>
-            <div style={styles.class}  onClick={() => navigate('/insideClass')}>
-              <div>
-              <div style={styles.classHeader}>
-                Classe Senac
+            {classes.map((classItem, index) => (
+              <div key={index} style={styles.class} onClick={() => navigate('/insideClass')}>
+                <div>
+                  <div style={styles.classHeader}>
+                    {classItem.nameClassroom} {/* Nome da classe */}
+                  </div>
+                  <p>{classItem.nameProfessor}</p> {/* Nome do professor */}
+                </div>
+                <div style={styles.classFooter}>
+                  <div>{classItem.availableLessons} aulas disponíveis</div> {/* Número de aulas disponíveis */}
+                  <div>{classItem.membersClassroom} alunos</div> {/* Número de alunos */}
+                </div>
               </div>
-              <p>Professor João</p>
-              </div>
-              <div style={styles.classFooter}>
-                <div>5 aulas disponíveis</div>
-                <div>30 alunos</div>
-              </div>
-            </div>
-            <div style={styles.class}>
-              <div>
-              <div style={styles.classHeader}>
-                Classe Alura
-              </div>
-              <p>Professor Paulo</p>
-              </div>
-              <div style={styles.classFooter}>
-                <div>10 aulas disponíveis</div>
-                <div>47 alunos</div>
-              </div>
-            </div> 
-            <div style={styles.class}>
-              <div>
-              <div style={styles.classHeader}>
-                Classe Empresa
-              </div>
-              <p>Professor Álvaro</p>
-              </div>
-              <div style={styles.classFooter}>
-                <div>13 aulas disponíveis</div>
-                <div>2 alunos</div>
-              </div>
-            </div>        
+            ))}
           </div>
         </div>
     </div>
