@@ -10,6 +10,13 @@ import '../global.css';
 const MainHeaderLeft = () => {
   const navigate = useNavigate();
 
+  const logout = () => {
+    sessionStorage.clear();
+    navigate('/')
+  };
+
+  
+
   return (
     <div style={styles.container}>
       <div>
@@ -30,7 +37,7 @@ const MainHeaderLeft = () => {
         <div style={styles.menu}>
           <img src={settingsLogo} style={styles.dLogo}/> Settings
           </div>
-        <div style={styles.menu}>
+        <div style={styles.menu} onClick={logout}>
           <img src={signOutLogo} style={styles.dLogo}/> Sign out
         </div>
       </div>

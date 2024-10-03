@@ -1,37 +1,25 @@
 import '../global.css'; 
 import SideBar from './SideBar';
 
-const ClassMembers = () => {
+const ClassMembers = ({members}) => {
+  if(!members || members.length ===0){
+    console.log("members", members)
+    return <div>Não há membros disponíveis no momento.</div>;
+  }
+  else{
+    console.log('members,', members)
+  }
   return (
     <div style={styles.container}>
         <SideBar/>
         {/* <div style={styles.leftBar}>.</div> */}
         <div style={styles.classMembers}>
             <h2 style={styles.h2}>Membros da turma</h2>
-            <div style={styles.membroBox}>
-                Jonas Silva
+            {members.map((member, index )=>(
+              <div style={styles.membroBox}>
+                {member}
             </div>
-            <div style={styles.membroBox}>
-                Luis Paulo
-            </div>
-            <div style={styles.membroBox}>
-                Lucas Junker
-            </div>
-            <div style={styles.membroBox}>
-                Gustavo Alves
-            </div>
-            <div style={styles.membroBox}>
-                Amanda
-            </div>
-            <div style={styles.membroBox}>
-                Fernando Miguel
-            </div>
-            <div style={styles.membroBox}>
-                Henrique
-            </div>
-            <div style={styles.membroBox}>
-                José
-            </div>  
+            ))}
         </div>
     </div>
   );

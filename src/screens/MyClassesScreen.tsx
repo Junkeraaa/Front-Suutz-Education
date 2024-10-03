@@ -40,8 +40,8 @@ const MyClassesScreen = () => {
 
         // Converter a resposta para JSON
         const classes = await response.json();
+        console.log("classes", classes)
         setClasses(classes)
-        console.log('classes', classes, typeof(classes))
         
         // Atualizar o estado com os dados do usuário
       } catch (error) {
@@ -70,7 +70,7 @@ const MyClassesScreen = () => {
           <MyClassesHeaderBar/>
           <div style={styles.dashboard}>
             {classes.map((classItem, index) => (
-              <div key={index} style={styles.class} onClick={() => navigate('/insideClass')}>
+              <div key={index} style={styles.class} onClick={() => navigate(`/insideClass/${classItem.classroomId}`)}>
                 <div>
                   <div style={styles.classHeader}>
                     {classItem.nameClassroom} {/* Nome da classe */}

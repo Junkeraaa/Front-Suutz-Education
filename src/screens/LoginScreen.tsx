@@ -24,12 +24,18 @@ const LoginScreen = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
+      let data = await response.json();
+
+      data = data.data
 
 
       if (response.ok) {
         alert('Login realizado com sucesso!');
         sessionStorage.setItem('token', data.token); // Armazenar o token na sessão
+        sessionStorage.setItem('name', data.name);
+        sessionStorage.setItem('role', data.role);
+        sessionStorage.setItem('id', data.id);
+
         navigate('/myClasses'); // Redirecionar para a nova página
       } else {
         setShowError(true);

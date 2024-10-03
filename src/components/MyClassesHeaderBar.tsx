@@ -1,19 +1,35 @@
 import mGlassLogo from '../assets/svg/mGlassLogo.svg'
 import '../global.css'; 
+import { useState, useEffect } from 'react';
 
 const MyClassesHeaderBar = () => {
+
+  const [nomeUsuario, setNomeUsuario] = useState('');
+  const [studentLogin, setStudentLogin] = useState(Boolean);
+
+  useEffect(() => {
+    const role = sessionStorage.getItem('role');
+    if(role){
+      setStudentLogin(role === 'student' ? true : false)
+    }
+    const nome = sessionStorage.getItem('name');
+    if (nome) {
+      setNomeUsuario(nome);
+    }
+  }, []);
+
   return (
     <div style={styles.container}>
         <div style={styles.myClasses}>
           <div style={styles.cabecalho}>
               <div style={styles.headerLeft}>
                 <div>Minhas turmas</div>
-                <div style={styles.textUser}>Bem vindo! Luis</div>
+                <div style={styles.textUser}>Bem vindo! {nomeUsuario}</div>
               </div>
                 
               <div style={styles.headerRight}>
                 <button><img src={mGlassLogo} style={styles.headerLogo}/></button>
-                <button style={styles.btnAddTurma}><img src="" alt="" />Adicionar turma</button>
+                <button style={styles.btnAddTurma}><img src="" alt="" />{studentLogin == true ? 'Adicionar turma' : 'Criar nova turma'}</button>
               </div>
           </div>    
         </div>
