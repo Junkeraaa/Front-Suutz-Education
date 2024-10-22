@@ -17,7 +17,7 @@ const App = () => {
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/myClasses" element={<MyClassesScreen />} />
       <Route path="/insideClass/:id" element={<InsideClass />} />
-      <Route path="/insideClassLesson" element={<InsideClassLesson />} /> 
+      <Route path="/insideClassLesson/:id" element={<InsideClassLesson />} /> 
       <Route path="/brokerOficial" element={ <BrokerOficial />}/>
     </Routes>
   );

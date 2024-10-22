@@ -31,14 +31,14 @@ const styles = {
     display: 'flex',
     flexDirection:"row",
     justifyContent: 'center',
-
+    
   },
   classMembers:{
     display: 'flex',
     flexDirection:"column",
+    alignItems:"flex-start",
     width:"18vw",
     heigth:"90vh",
-    justifyContent:"space-around"
   },
   h2: {
     fontSize:"35px"
@@ -46,6 +46,7 @@ const styles = {
   membroBox: {
     fontSize:"20px",
     backgroundColor:"#606060",
+    marginTop:"1vh",
     display: 'flex',
     flexDirection:"row",
     alignItems:"center",
