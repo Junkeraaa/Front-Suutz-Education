@@ -15,21 +15,42 @@ const InsideClassLesson = () => {
   const [content, setContent] = useState(aula?.content || ''); // Estado para o conteúdo editável
   const [isProfessor, setIsProfessor] = useState(false); // Estado para verificar o tipo de usuário
 
-  // Função para salvar o conteúdo editado (por exemplo, enviar para o backend)
-  const handleSave = () => {
-    console.log('Conteúdo salvo:', content);
-    // Aqui você pode enviar o conteúdo editado para o backend
-  };
-
   // useEffect para checar o tipo de usuário no sessionStorage
   useEffect(() => {
-    const userType = sessionStorage.getItem('role');
+    const userType = sessionStorage.getItem('userType');
     if (userType === 'professor') {
       setIsProfessor(true); // Se for professor, habilita o modo de edição
     } else {
       setIsProfessor(false); // Se for aluno, desabilita a edição
     }
   }, []);
+
+  // Função para salvar o conteúdo editado no backend
+  const handleSave = async () => {
+    try {
+      const response = await fetch(`/api/lessons/${aula.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: content,  // Conteúdo atualizado
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result.message); // Mensagem de sucesso
+        alert('Aula atualizada com sucesso!');
+      } else {
+        console.error('Erro ao salvar a aula');
+        alert('Erro ao salvar a aula.');
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      alert('Erro na requisição.');
+    }
+  };
 
   return (
     <div style={styles.container}>
