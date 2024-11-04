@@ -6,41 +6,81 @@ import '../global.css';
 import playButtonSvg from '../assets/svg/playButton.svg';
 import { useLocation } from 'react-router-dom';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // Importa o estilo básico do Quill
+import 'react-quill/dist/quill.snow.css';
 
 const InsideClassLesson = () => {
   const location = useLocation();
-  const { aula } = location.state || {}; // Acessa o objeto 'aula'
+  const { aula } = location.state || {};
+  const [content, setContent] = useState(aula?.content || '');
+  const [isProfessor, setIsProfessor] = useState(false);
+  const [images, setImages] = useState([]); // Array para armazenar as imagens em base64
 
-  const [content, setContent] = useState(aula?.content || ''); // Estado para o conteúdo editável
-  const [isProfessor, setIsProfessor] = useState(false); // Estado para verificar o tipo de usuário
-
-  // useEffect para checar o tipo de usuário no sessionStorage
   useEffect(() => {
-    const userType = sessionStorage.getItem('userType');
-    if (userType === 'professor') {
-      setIsProfessor(true); // Se for professor, habilita o modo de edição
-    } else {
-      setIsProfessor(false); // Se for aluno, desabilita a edição
-    }
+    const role = sessionStorage.getItem('role');
+    setIsProfessor(role === 'professor');
   }, []);
+
+  // Função para converter imagem em base64 e adicioná-la ao array de imagens
+  const uploadImage = async (file) => {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onloadend = () => {
+        const base64Image = reader.result.split(',')[1];
+        setImages((prevImages) => [...prevImages, base64Image]);
+        resolve();
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  };
+
+  // Configuração do Quill com handler de imagem
+  const quillModules = {
+    toolbar: {
+      container: [
+        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['bold', 'italic', 'underline'],
+        [{ 'color': [] }, { 'background': [] }],
+        ['image']
+      ],
+      handlers: {
+        image: function () {
+          const input = document.createElement('input');
+          input.setAttribute('type', 'file');
+          input.setAttribute('accept', 'image/*');
+          input.click();
+
+          input.onchange = async () => {
+            const file = input.files[0];
+            if (file) {
+              await uploadImage(file);
+              const range = this.quill.getSelection();
+              this.quill.insertEmbed(range.index, 'image', reader.result);
+            }
+          };
+        }
+      }
+    }
+  };
 
   // Função para salvar o conteúdo editado no backend
   const handleSave = async () => {
     try {
-      const response = await fetch(`/api/lessons/${aula.id}`, {
+      const token = sessionStorage.getItem('token');
+      const response = await fetch(`http://localhost:3000/api/lesson/editLesson/${aula.id}`, {
         method: 'PUT',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: content,  // Conteúdo atualizado
+          content: content,
+          images: images, // Envia o array de imagens em base64
         }),
       });
 
       if (response.ok) {
-        const result = await response.json();
-        console.log(result.message); // Mensagem de sucesso
         alert('Aula atualizada com sucesso!');
       } else {
         console.error('Erro ao salvar a aula');
@@ -58,22 +98,17 @@ const InsideClassLesson = () => {
       <div style={styles.insideClass}>
         <MyClassesHeaderBar />
         <div style={styles.dashboard}>
-          <div style={styles.lessonName}>
-            {aula.title}
-          </div>
-
-          {/* Se o usuário for professor, mostra o editor Quill */}
+          <div style={styles.lessonName}>{aula.title}</div>
           <div style={styles.lessonBody}>
             {isProfessor ? (
               <div>
-                <ReactQuill value={content} onChange={setContent} />
+                <ReactQuill value={content} onChange={setContent} modules={quillModules} />
                 <button onClick={handleSave} style={styles.saveButton}>Salvar</button>
               </div>
             ) : (
-              <div dangerouslySetInnerHTML={{ __html: content }} /> // Exibe conteúdo para alunos
+              <div dangerouslySetInnerHTML={{ __html: content }} />
             )}
           </div>
-
           <div style={styles.lessonFooter}>
             <VerticalBar />
             <div>
@@ -93,25 +128,11 @@ const InsideClassLesson = () => {
 };
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: '2rem',
-  },
-  lessonName: {
-    fontSize: '35px',
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  lessonBody: {
-    fontSize: '20px',
-  },
-  lessonFooter: {
-    fontSize: '20px',
-  },
+  container: { display: 'flex', flexDirection: 'row', justifyContent: 'center' },
+  title: { fontSize: '2rem' },
+  lessonName: { fontSize: '35px', fontWeight: 'bold', color: 'black' },
+  lessonBody: { fontSize: '20px' },
+  lessonFooter: { fontSize: '20px' },
   insideClass: {
     display: 'flex',
     flexDirection: 'column',
@@ -130,9 +151,7 @@ const styles = {
     justifyContent: 'space-between',
     flexWrap: 'wrap',
   },
-  playBtnSvg: {
-    width: '3vh',
-  },
+  playBtnSvg: { width: '3vh' },
   btnPlayBroker: {
     fontSize: '1.2rem',
     fontWeight: 'bold',
