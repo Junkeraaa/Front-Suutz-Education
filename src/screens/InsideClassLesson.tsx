@@ -27,6 +27,18 @@ const InsideClassLesson = () => {
 
   // Função para salvar o conteúdo editado no backend
 
+  const quillModules = {
+    toolbar: {
+      container: [
+        [{ 'header': '1' }, { 'header': '2' }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        ['link', 'image'], // Adiciona um botão de imagem
+      ],
+    }
+  };
+
+
     const handleSave = async () => {
       try {
         const token = sessionStorage.getItem('token');
@@ -67,7 +79,11 @@ const InsideClassLesson = () => {
           <div style={styles.lessonBody}>
             {isProfessor ? (
               <div>
-                <ReactQuill value={content} onChange={setContent} />
+                <ReactQuill
+                  value={content}
+                  onChange={setContent}
+                  modules={quillModules}
+                />
                 <button onClick={handleSave} style={styles.saveButton}>Salvar</button>
               </div>
             ) : (
