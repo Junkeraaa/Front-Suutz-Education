@@ -13,8 +13,9 @@ import bbLogo from '../assets/svg/bbLogo.svg';
 import cyrelaLogo from '../assets/svg/cyrelaLogo.svg';
 import bradescoLogo from '../assets/svg/bradescoLogo.svg';
 import brfLogo from '../assets/svg/brfLogo.svg';
+import { displayName } from 'react-quill';
 
-const BrokerDashboard = () => {
+const StockDashboard = () => {
     const navigate = useNavigate();
     const [acoes, setAcoes] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -77,51 +78,32 @@ const BrokerDashboard = () => {
         img12: brfLogo
     };
 
-    const getRandomPercentage = () => {
-        return (Math.random() * 20 - 10).toFixed(2); // Gera um número entre -10 e 10 e formata com 2 casas decimais
-    };
-
-    const getPercentageStyle = (percentage) => {
-        return {
-            color: parseFloat(percentage) < 0 ? 'red' : 'green' // Defina a cor com base no valor
-        };
-    };
+    
 
     return (
         <div style={styles.container}>
-            {!displayComponent ? (
-                <div style={styles.loading}>Loading...</div>
-            ) : loading ? (
-                <div style={styles.loading}>Loading...</div>
-            ) : error ? (
-                <div style={styles.loading}>{error}</div>
-            ) : acoes.length > 0 ? (
-                acoes.map((acao, index) => (
-                    <div key={index} style={styles.cardAcao}
-                    onClick={() => navigate(`/insideStock/${index}`)}
-                    >
-                        <div style={styles.acaoHeader}>
-                            <img src={imagens[`img${index + 1}`]} alt="" style={styles.acaoLogo} />
-                            {acao.name}
-                        </div>
-                        <div style={styles.acaoBody}>
-                            <div style={styles.valueNow}>
-                                value now
-                            </div>
-                            <div style={styles.value}>
-                                R${acao.currentPrice.toFixed(2)} 
-                            </div>
-                        </div>
-                        <div style={styles.acaoFooter}>
-                            <span style={getPercentageStyle(getRandomPercentage())}>
-                                {getRandomPercentage()}%
-                            </span>
-                        </div>
-                    </div>
-                ))
-            ) : (
-                <div style={styles.loading}>No data available</div>
-            )}
+            <div style={styles.dashBoxes}>
+                <div style={styles.boxValue}>
+                    Value now
+                </div>
+                <div style={styles.boxMin}>
+                    Min day
+                </div>
+                <div style={styles.boxMax}>
+                    Max day    
+                </div>
+                <div style={styles.boxYield}>
+                    Dividend Yield
+                </div>
+            </div>
+            <div style={styles.dashInfos}>
+                <div style={styles.stockGraph}>
+                    oi
+                </div>
+                <div style={styles.stockInfos}>
+                    oi
+                </div>
+            </div>
         </div>
     );
 };
@@ -130,14 +112,13 @@ const styles = {
     container: {
         color: 'black',
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         overflow: 'hidden',
         height: '80vh',
         width: '84vw',
         marginTop: '2vh',
         justifyContent: 'center',
-        paddingLeft: '1vw'
     },
     acaoHeader: {
         display: 'flex',
@@ -180,7 +161,63 @@ const styles = {
     loading: {
         fontSize: '1.5em',
         color: '#888'
+    },
+
+    dashInfos:{
+        display:'flex',
+        flexDirection:"row"
+    },
+
+    stockGraph:{
+        width:"45vw",
+        height:"58vh",
+        backgroundColor:"green"
+    },
+
+    stockInfos:{
+        width:"39vw",
+        height:"58vh",
+        backgroundColor:"red"
+    },
+
+
+
+    dashBoxes:{
+        marginTop:'1em',
+        width:"84vw",
+        height:"20vh",
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:'space-around',
+    },
+
+    boxMax:{
+        width:"15vw",
+        height: "20vh", // Corrigido aqui
+        backgroundColor: "#ffefef",
+        borderRadius:'10px'
+    },
+
+    boxValue:{
+        backgroundColor: "#e2ffed",
+        width:"15vw",
+        height: "20vh", // Corrigido aqui
+        borderRadius:'10px'
+    },
+
+    boxMin:{
+        backgroundColor: "#fbffe0",
+        width:"15vw",
+        height: "20vh", // Corrigido aqui
+        borderRadius:'10px'
+    },
+
+    boxYield:{
+        backgroundColor: "#eef6ff",
+        width:"15vw",
+        height: "20vh", // Corrigido aqui
+        borderRadius:'10px'
     }
 };
 
-export default BrokerDashboard;
+export default StockDashboard;

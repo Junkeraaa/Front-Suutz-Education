@@ -26,7 +26,7 @@ const MainHeaderLeft = () => {
         <div>
           <button style={styles.btnDashboard}><img src={dashboardLogo} style={styles.dLogo}></img>Dashboard</button>
         </div>
-        <div style={styles.menu}>
+        <div style={styles.menu} onClick={() => navigate('/myClasses')}>
         <img src={minhasTurmasLogo} style={styles.dLogo}/> Minhas turmas
         </div>
         <div style={styles.menu} onClick={() => navigate('/brokerOficial')}>
