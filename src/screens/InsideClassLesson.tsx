@@ -17,8 +17,8 @@ const InsideClassLesson = () => {
 
   // useEffect para checar o tipo de usuário no sessionStorage
   useEffect(() => {
-    const userType = sessionStorage.getItem('userType');
-    if (userType === 'professor') {
+    const role = sessionStorage.getItem('role');
+    if (role === 'professor') {
       setIsProfessor(true); // Se for professor, habilita o modo de edição
     } else {
       setIsProfessor(false); // Se for aluno, desabilita a edição
@@ -26,31 +26,32 @@ const InsideClassLesson = () => {
   }, []);
 
   // Função para salvar o conteúdo editado no backend
-  const handleSave = async () => {
-    try {
-      const response = await fetch(`/api/lessons/${aula.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: content,  // Conteúdo atualizado
-        }),
-      });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result.message); // Mensagem de sucesso
-        alert('Aula atualizada com sucesso!');
-      } else {
-        console.error('Erro ao salvar a aula');
-        alert('Erro ao salvar a aula.');
+    const handleSave = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        const response = await fetch(`http://localhost:3000/api/lesson/editLesson/${aula.id}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            content: content,
+          }),
+        });
+  
+        if (response.ok) {
+          alert('Aula atualizada com sucesso!');
+        } else {
+          console.error('Erro ao salvar a aula');
+          alert('Erro ao salvar a aula.');
+        }
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        alert('Erro na requisição.');
       }
-    } catch (error) {
-      console.error('Erro na requisição:', error);
-      alert('Erro na requisição.');
-    }
-  };
+    };
 
   return (
     <div style={styles.container}>
