@@ -5,36 +5,54 @@ import SideBarBrokerHeader from './SideBarBrokerHeader';
 import NewsLogo from '../assets/svg/newsPaperLogo.svg'
 import PersonalBalance from './PersonalBalance';
 
-const BrokerHeader = () => {
-  return (
-    <div style={styles.container}>
-        <div style={styles.myClasses}>
-          <div style={styles.cabecalho}>
-              <div style={styles.headerLeft}>
-                <div style={styles.header}>
-                <div>Broker - Oficial</div>
-                {/* broker aula  */}
-                <div style={styles.textUser}>Bem vindo! Luis</div>
+const BrokerHeader = ({tipo}) => {
+  if(tipo != 'minhaCarteira'){
+    return (
+      <div style={styles.container}>
+          <div style={styles.myClasses}>
+            <div style={styles.cabecalho}>
+                <div style={styles.headerLeft}>
+                  <div style={styles.header}>
+                  <div>Broker - Oficial</div>
+                  {/* broker aula  */}
+                  <div style={styles.textUser}>Bem vindo! Luis</div>
+                  </div>
+                  <SideBarBrokerHeader/>
+                  <div style={styles.headerRight}>
+                      <div style={styles.suutzNews}>Suutz News <br/>
+                      O maior portal de notícias
+                      </div>
+                      <div>
+                          <img src={NewsLogo} alt="" style={styles.newsLogo}/>
+                      </div>
+                  </div>
                 </div>
-                <SideBarBrokerHeader/>
-                <div style={styles.headerRight}>
-                    <div style={styles.suutzNews}>Suutz News <br/>
-                    O maior portal de notícias
-                    </div>
-                    <div>
-                        <img src={NewsLogo} alt="" style={styles.newsLogo}/>
-                    </div>
-                </div>
-              </div>
-                
-              
-              <PersonalBalance/>   
-
+                <PersonalBalance/>   
+            </div>       
           </div>
-        
-        </div>
-    </div>
-  );
+      </div>
+    );
+  }
+
+  else{
+    return (
+      <div style={styles.container}>
+          <div style={styles.myClasses}>
+            <div style={styles.cabecalho}>
+                <div style={styles.headerLeft}>
+                  <div style={styles.header}>
+                  <div>Minha carteira</div>
+                  {/* broker aula  */}
+                  <div style={styles.textUser}>Bem vindo! Luis</div>
+                  </div>
+                </div>
+                <PersonalBalance/>   
+            </div>       
+          </div>
+      </div>
+    )
+  }
+  
 };
 
 const styles = {

@@ -4,14 +4,14 @@ import BrokerHeader from '../components/BrokerHeader';
 import BrokerDashboard from '../components/BrokerDashboard';
 
 
-const BrokerOficial = () => {
+const MinhaCarteira = () => {
   return (
     <div style={styles.container}>
         <MainHeaderLeft tipo={'broker'}/>
         <div style={styles.insideClass}>
-          <BrokerHeader/>
+          <BrokerHeader tipo={'minhaCarteira'}/>
           <div style={styles.dashboard}>
-            <BrokerDashboard/>
+            
           </div>
         </div>
     </div>
@@ -45,4 +45,4 @@ const styles = {
 
 };
 
-export default BrokerOficial;
+export default MinhaCarteira;

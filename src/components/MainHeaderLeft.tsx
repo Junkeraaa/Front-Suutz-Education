@@ -7,7 +7,7 @@ import signOutLogo from '../assets/svg/signOutLogo.svg'
 import { useNavigate } from 'react-router-dom';
 import '../global.css'; 
 
-const MainHeaderLeft = () => {
+const MainHeaderLeft = ({tipo}) => {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -32,6 +32,12 @@ const MainHeaderLeft = () => {
         <div style={styles.menu} onClick={() => navigate('/brokerOficial')}>
         <img src={brokerLogo} style={styles.dLogo}/> Broker oficial
         </div>
+              {tipo === 'broker' && (
+        <div style={styles.menu} onClick={() => navigate('/minhaCarteira')}>
+          <img src={brokerLogo} style={styles.dLogo}/> Minha carteira
+        </div>
+      )}
+
       </div>
       <div style={styles.rodape}>
         <div style={styles.menu}>
