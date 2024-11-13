@@ -15,27 +15,25 @@ import bradescoLogo from '../assets/svg/bradescoLogo.svg';
 import brfLogo from '../assets/svg/brfLogo.svg';
 import { displayName } from 'react-quill';
 
-const StockDashboard = () => {
+const StockDashboard = ({stockId}) => {
     const navigate = useNavigate();
-    const [acoes, setAcoes] = useState([]);
+    const [acao, setAcao] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [displayComponent, setDisplayComponent] = useState(false); // Estado para controlar a exibição
 
     useEffect(() => {
-        const fetchAcoes = async () => {
+        const fetchAcao = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/broker/stocks');
+                const response = await axios.get(`http://localhost:4000/stocks/${stockId}`);
                 console.log('Dados recebidos:', response.data); // Verifica o formato dos dados recebidos
 
                 // Ajuste se necessário com base na estrutura da resposta da API
-                const data = response.data.data || response.data;
-
-                if (Array.isArray(data)) {
-                    setAcoes(data);
-                } else {
-                    console.error('Formato de dados inesperado:', data);
-                }
+                const data = response.data.data
+                console.log('data', data)
+                setAcao(data);  
+                console.log('acao', acao)
+    
             } catch (error) {
                 console.error('Erro ao buscar dados da API:', error);
                 setError('Erro ao buscar dados da API.');
@@ -45,9 +43,9 @@ const StockDashboard = () => {
         };
 
         // Buscar dados inicialmente
-        fetchAcoes();
+        fetchAcao();
 
-        const intervalId = setInterval(fetchAcoes, 3000);
+        const intervalId = setInterval(fetchAcao, 3000);
 
         // Limpar intervalo ao desmontar o componente
         return () => clearInterval(intervalId);
@@ -85,15 +83,26 @@ const StockDashboard = () => {
             <div style={styles.dashBoxes}>
                 <div style={styles.boxValue}>
                     Value now
+                    <div style={styles.boxVal}>
+                        {acao.currentPrice}
+                    </div>
                 </div>
                 <div style={styles.boxMin}>
                     Min day
+                    <div style={styles.boxVal}>
+                        {acao.minPriceDay}
+                    </div>
                 </div>
                 <div style={styles.boxMax}>
                     Max day    
+                    <div style={styles.boxVal}>
+                        {acao.maxPriceDay}
+                    </div>
                 </div>
                 <div style={styles.boxYield}>
                     Dividend Yield
+                    <div style={styles.boxVal}>
+                    </div>
                 </div>
             </div>
             <div style={styles.dashInfos}>
@@ -217,6 +226,9 @@ const styles = {
         width:"15vw",
         height: "20vh", // Corrigido aqui
         borderRadius:'10px'
+    },
+    boxVal:{
+        fontSize: '3rem'
     }
 };
 

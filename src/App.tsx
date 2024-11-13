@@ -20,7 +20,7 @@ const App = () => {
       <Route path="/insideClass/:id" element={<InsideClass />} />
       <Route path="/insideClassLesson/:id" element={<InsideClassLesson />} /> 
       <Route path="/brokerOficial" element={ <BrokerOficial />}/>
-      <Route path="/insideStock/:id" element={ <InsideStock />}/>
+      <Route path="/insideStock/:imageId/:stockId" element={ <InsideStock />}/>
     </Routes>
   );
 };

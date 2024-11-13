@@ -24,7 +24,7 @@ const BrokerDashboard = () => {
     useEffect(() => {
         const fetchAcoes = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/broker/stocks');
+                const response = await axios.get('http://localhost:4000/stocks');
                 console.log('Dados recebidos:', response.data); // Verifica o formato dos dados recebidos
 
                 // Ajuste se necessário com base na estrutura da resposta da API
@@ -98,7 +98,7 @@ const BrokerDashboard = () => {
             ) : acoes.length > 0 ? (
                 acoes.map((acao, index) => (
                     <div key={index} style={styles.cardAcao}
-                    onClick={() => navigate(`/insideStock/${index}`)}
+                    onClick={() => navigate(`/insideStock/${index}/${acao.id}`)}
                     >
                         <div style={styles.acaoHeader}>
                             <img src={imagens[`img${index + 1}`]} alt="" style={styles.acaoLogo} />
