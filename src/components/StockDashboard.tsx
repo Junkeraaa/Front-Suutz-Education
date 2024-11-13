@@ -107,10 +107,12 @@ const StockDashboard = ({stockId}) => {
             </div>
             <div style={styles.dashInfos}>
                 <div style={styles.stockGraph}>
-                    oi
+                    <div style={styles.stockName}>
+                        {acao.name}
+                    </div>
                 </div>
                 <div style={styles.stockInfos}>
-                    oi
+                    
                 </div>
             </div>
         </div>
@@ -161,7 +163,6 @@ const styles = {
         border: '2px solid',
         borderRadius: '10px',
         borderColor: '#8d8d8d',
-        backgroundColor: '#ededed',
         justifyContent: 'space-between',
         marginTop: '1vh',
         paddingLeft: '0.5vw',
@@ -180,13 +181,11 @@ const styles = {
     stockGraph:{
         width:"45vw",
         height:"58vh",
-        backgroundColor:"green"
     },
 
     stockInfos:{
         width:"39vw",
         height:"58vh",
-        backgroundColor:"red"
     },
 
 
@@ -229,6 +228,9 @@ const styles = {
     },
     boxVal:{
         fontSize: '3rem'
+    },
+    stockName:{
+        fontSize:"2em"
     }
 };
 
