@@ -1,6 +1,6 @@
 import '../global.css'; 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import yduqsLogo from '../assets/svg/yduqsLogo.svg';
 import ultraparLogo from '../assets/svg/ultraparLogo.svg';
@@ -15,12 +15,59 @@ import bradescoLogo from '../assets/svg/bradescoLogo.svg';
 import brfLogo from '../assets/svg/brfLogo.svg';
 import { displayName } from 'react-quill';
 
+import { Line } from 'react-chartjs-2';
+import io from 'socket.io-client';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { ChartData } from 'chart.js'; // Importa o tipo correto
+
+// Registrar os componentes necessários do Chart.js
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+const socket = io("http://localhost:3000");
 const StockDashboard = ({stockId}) => {
     const navigate = useNavigate();
     const [acao, setAcao] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [displayComponent, setDisplayComponent] = useState(false); // Estado para controlar a exibição
+
+    const [chartData, setChartData] = useState<ChartData<'line'>>();
+
+    socket.emit('requestForData', stockId);
+      
+    socket.on('responseForData', (data: { price: number; at: Date }[]) => {
+        const formattedData: ChartData<'line'> = {
+          labels: data.map((item) => item.at.toString()), 
+          datasets: [
+            {
+              label: 'Dataset Dinâmico',
+              data: data.map((item) => item.price),
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              tension: 0,
+            },
+          ],
+        };
+  
+        setChartData(formattedData);
+      });
 
     useEffect(() => {
         const fetchAcao = async () => {
@@ -110,11 +157,39 @@ const StockDashboard = ({stockId}) => {
                     <div style={styles.stockName}>
                         {acao.name}
                     </div>
+                    <div style={{ width: '100%', height: '90%', margin: 'auto' }}>
+                        {chartData ? (
+                            <Line
+                            data={chartData}
+                            options={{
+                                animation: {easing: 'linear', duration: 0},
+                                responsive: true,
+                                elements: {
+                                    point: {
+                                        pointStyle: false,
+                                    },
+                                },
+                                plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Gráfico Dinâmico com Chart.js',
+                                },
+                                },
+                            }}
+                            />
+                        ) : (
+                            <p>Carregando dados do gráfico...</p>
+                        )}
+                    </div>
                 </div>
                 <div style={styles.stockInfos}>
                     
                 </div>
             </div>
+            
         </div>
     );
 };
@@ -174,12 +249,14 @@ const styles = {
     },
 
     dashInfos:{
+        width: '100%',
         display:'flex',
         flexDirection:"row"
     },
 
     stockGraph:{
-        width:"45vw",
+        display: 'flex',
+        width:"100%",
         height:"58vh",
     },
 
