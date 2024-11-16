@@ -6,12 +6,10 @@ import StockDashboard from '../components/StockDashboard'
 
 
 const InsideStock = () => {
-
-    const { imageId } = useParams();
-    console.log(imageId, 'id')
-    const { stockId } = useParams();
-
-
+  const { imageId } = useParams();
+  console.log(imageId, 'id')
+  const { stockId } = useParams();
+  
   return (
     <div style={styles.container}>
         <MainHeaderLeft/>
