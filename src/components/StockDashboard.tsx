@@ -40,7 +40,7 @@ ChartJS.register(
   Legend
 );
 
-const socket = io("http://localhost:3000");
+const socket = io("http://localhost:4000");
 const StockDashboard = ({stockId}) => {
     const navigate = useNavigate();
     const [acao, setAcao] = useState([]);

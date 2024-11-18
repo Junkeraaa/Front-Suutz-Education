@@ -2,16 +2,17 @@ import MainHeaderLeft from '../components/MainHeaderLeft';
 import '../global.css'; 
 import BrokerHeader from '../components/BrokerHeader';
 import BrokerDashboard from '../components/BrokerDashboard';
+import NewsDashboard from '../components/NewsDashboard';
 
 
-const BrokerOficial = () => {
+const SuutzNews = () => {
   return (
     <div style={styles.container}>
         <MainHeaderLeft tipo={'broker'}/>
         <div style={styles.insideClass}>
-          <BrokerHeader tipo={'brokerHeader'}/>
+          <BrokerHeader tipo={'suutzNews'}/>
           <div style={styles.dashboard}>
-            <BrokerDashboard/>
+            <NewsDashboard/>
           </div>
         </div>
     </div>
@@ -45,4 +46,4 @@ const styles = {
 
 };
 
-export default BrokerOficial;
+export default SuutzNews;

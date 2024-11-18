@@ -9,6 +9,7 @@ import InsideClassLesson from './screens/InsideClassLesson';
 import BrokerOficial from './screens/BrokerOficial';
 import InsideStock from './screens/InsideStock'
 import MinhaCarteira from './screens/MinhaCarteira';
+import SuutzNews from './screens/SuutzNews';
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
       <Route path="/brokerOficial" element={ <BrokerOficial />}/>
       <Route path="/insideStock/:imageId/:stockId" element={ <InsideStock />}/>
       <Route path="/minhaCarteira" element={<MinhaCarteira/>}/>
+      <Route path="/suutzNews" element={<SuutzNews/>}/>
     </Routes>
   );
 };

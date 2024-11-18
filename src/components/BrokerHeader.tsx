@@ -6,7 +6,7 @@ import NewsLogo from '../assets/svg/newsPaperLogo.svg'
 import PersonalBalance from './PersonalBalance';
 
 const BrokerHeader = ({tipo}) => {
-  if(tipo != 'minhaCarteira'){
+  if(tipo == 'brokerHeader'){
     return (
       <div style={styles.container}>
           <div style={styles.myClasses}>
@@ -34,8 +34,33 @@ const BrokerHeader = ({tipo}) => {
     );
   }
 
-  else{
+  else if(tipo == 'suutzNews'){
     return (
+      <div style={styles.container}>
+          <div style={styles.myClasses}>
+            <div style={styles.cabecalho}>
+              <div style={styles.sN}>
+
+                  <div>
+                    <div style={styles.newsHeader}>Suutz News</div>
+                    <div style={styles.newsSubHeader}>O maior portal de notícias</div>
+                  </div>
+                
+                  <div>
+                    <img src={NewsLogo} alt="" style={styles.newsLogo2}/>
+                  </div>
+
+
+              </div>
+                <PersonalBalance/>   
+            </div>       
+          </div>
+      </div>
+    )
+  }
+
+  else{
+    return(
       <div style={styles.container}>
           <div style={styles.myClasses}>
             <div style={styles.cabecalho}>
@@ -122,7 +147,7 @@ const styles = {
     newsLogo:{
         width:"35px"
       },
-      suutzNews:{
+    suutzNews:{
         width:"15vw",
         height:"6vh",
         display:"flex",
@@ -130,6 +155,24 @@ const styles = {
         justifyContent:"center",
         alignItems:"center",
 
+    },
+    sN:{
+      display:'flex',
+      flexDirection:"row",
+      alignItems:"center"
+    },
+    newsHeader:{
+      color:'black',
+
+      fontSize:"3rem"
+    },
+    newsSubHeader:{
+      fontSize:"1.5rem",
+      color:"black"
+    },
+    newsLogo2:{
+      width:"50px",
+      marginLeft:"1em"
     },
    
     header:{
