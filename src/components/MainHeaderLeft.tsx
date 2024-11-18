@@ -5,6 +5,7 @@ import brokerLogo from '../assets/svg/brokerLogo.svg'
 import settingsLogo from '../assets/svg/settingsLogo.svg'
 import signOutLogo from '../assets/svg/signOutLogo.svg'
 import NewsLogo from '../assets/svg/newsPaperLogo.svg'
+import news2 from '../assets/svg/svgnews2.svg'
 import { useNavigate } from 'react-router-dom';
 import '../global.css'; 
 
@@ -40,7 +41,7 @@ const MainHeaderLeft = ({tipo}) => {
       )}
             {tipo === 'broker' && (
         <div style={styles.menu} onClick={() => navigate('/suutzNews')}>
-          <img src={NewsLogo} style={styles.dLogo}/> Suutz News
+          <img src={news2} style={styles.dLogo}/> Suutz News
         </div>
       )}
 
