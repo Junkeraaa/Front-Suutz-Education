@@ -37,6 +37,8 @@ const LoginScreen = () => {
         sessionStorage.setItem('name', data.name);
         sessionStorage.setItem('role', data.role);
         sessionStorage.setItem('id', data.id);
+
+        
         
         navigate('/myClasses'); // Redirecionar para a nova página
       } else {

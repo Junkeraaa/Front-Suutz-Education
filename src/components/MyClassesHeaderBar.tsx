@@ -3,10 +3,10 @@ import '../global.css';
 import { useState, useEffect } from 'react';
 
 const MyClassesHeaderBar = () => {
-
+  const [nomeTurma, setNomeTurma] = useState('');
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [studentLogin, setStudentLogin] = useState(Boolean);
-
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     const role = sessionStorage.getItem('role');
     if(role){
@@ -18,26 +18,116 @@ const MyClassesHeaderBar = () => {
     }
   }, []);
 
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const handleCriar = () => {
+    const id = sessionStorage.getItem('id');
+    
+    toggleModal(); // Fechar o modal após a ação
+  };
+  const handleNomeChange = (e) => {
+    setNomeTurma(e.target.value);
+  };
   return (
+    <>
     <div style={styles.container}>
-        <div style={styles.myClasses}>
-          <div style={styles.cabecalho}>
-              <div style={styles.headerLeft}>
-                <div>Minhas turmas</div>
-                <div style={styles.textUser}>Bem vindo! {nomeUsuario}</div>
-              </div>
-                
-              <div style={styles.headerRight}>
-                <button><img src={mGlassLogo} style={styles.headerLogo}/></button>
-                <button style={styles.btnAddTurma}><img src="" alt="" />{studentLogin == true ? 'Adicionar turma' : 'Criar nova turma'}</button>
-              </div>
-          </div>    
+      <div style={styles.myClasses}>
+        <div style={styles.cabecalho}>
+          <div style={styles.headerLeft}>
+            <div>Minhas turmas</div>
+            <div style={styles.textUser}>Bem vindo! {nomeUsuario}</div>
+          </div>
+
+          <div style={styles.headerRight}>
+            <button>
+              <img src={mGlassLogo} style={styles.headerLogo} />
+            </button>
+            <button style={styles.btnAddTurma} onClick={toggleModal}>
+              <img src="" alt="" />
+              {studentLogin ? 'Adicionar turma' : 'Criar nova turma'}
+            </button>
+          </div>
         </div>
+      </div>
     </div>
+    
+    {showModal && (
+      <div style={styles.modalOverlay}>
+        <div style={styles.modalContent}>
+          <h2>{studentLogin ? 'Adicionar Turma' : 'Criar Nova Turma'}</h2>
+          <p>{studentLogin ? 'Digite o código da turma': 'Digite o nome da turma'}</p>
+          <input
+              type="text"
+              placeholder="Nome da turma"
+              style={styles.inputField}
+              value={nomeTurma}  // O valor do campo será o estado nomeTurma
+              onChange={handleNomeChange} // Atualiza o estado nomeTurma
+            />
+          <div style={styles.modalActions}>
+            <button onClick={toggleModal} style={styles.cancelButton}>
+              Cancelar
+            </button>
+            <button style={styles.saveButton} onClick={handleCriar}>
+              {studentLogin ? 'Adicionar' : 'Criar'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+  </>
   );
 };
 
 const styles = {
+
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    width: '400px',
+    textAlign: 'center',
+  },
+  inputField: {
+    width: '100%',
+    padding: '10px',
+    marginTop: '10px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  },
+  modalActions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '20px',
+  },
+  cancelButton: {
+    backgroundColor: 'red',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '10px 20px',
+    cursor: 'pointer',
+  },
+  saveButton: {
+    backgroundColor: 'green',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '10px 20px',
+    cursor: 'pointer',
+  },
     container: {
       display: 'flex',
       flexDirection:"row",
