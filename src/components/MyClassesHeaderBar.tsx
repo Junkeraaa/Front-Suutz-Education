@@ -1,12 +1,90 @@
 import mGlassLogo from '../assets/svg/mGlassLogo.svg'
 import '../global.css'; 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const MyClassesHeaderBar = () => {
-  const [nomeTurma, setNomeTurma] = useState('');
+  const navigate = useNavigate()
+  const [className, setClassName] = useState('');
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [studentLogin, setStudentLogin] = useState(Boolean);
   const [showModal, setShowModal] = useState(false);
+
+  const handleCriar = async  () => {
+    const token = sessionStorage.getItem('token');
+    const role = sessionStorage.getItem('role')
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      if(role == 'professor')
+      {
+        try {
+          // Fazer a requisição ao backend com o token no cabeçalho
+          const response = await fetch('http://localhost:3000/api/class/createClass', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ className }),
+          });
+  
+          // Verificar se a resposta foi bem-sucedida
+          if (!response.ok) {
+            throw new Error('Erro ao buscar os dados do usuário');
+          }
+  
+          // Converter a resposta para JSON
+          const resposta = await response.json();
+          console.log('resposta', resposta)
+  
+          navigate(`/insideClass/${resposta.classId}`);
+          
+          // Atualizar o estado com os dados do usuário
+        } catch (error) {
+          console.error('Erro ao criar classe:', error);
+        } 
+      
+        toggleModal(); // Fechar o modal após a ação
+      }
+      else{
+        const classroomCode = className
+        try {
+          // Fazer a requisição ao backend com o token no cabeçalho
+          const response = await fetch('http://localhost:3000/api/class/insertInClass', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ classroomCode }),
+          });
+  
+          // Verificar se a resposta foi bem-sucedida
+          if (!response.ok) {
+            throw new Error('Erro ao buscar os dados do usuário');
+          }
+  
+          // Converter a resposta para JSON
+          const resposta = await response.json();
+          console.log('resposta', resposta)
+  
+
+          
+          // Atualizar o estado com os dados do usuário
+        } catch (error) {
+          console.error('Erro ao criar classe:', error);
+        } 
+      
+        toggleModal(); // Fechar o modal após a ação
+        window.location.reload()
+      } 
+  };
+
+
+
   useEffect(() => {
     const role = sessionStorage.getItem('role');
     if(role){
@@ -22,14 +100,15 @@ const MyClassesHeaderBar = () => {
     setShowModal(!showModal);
   };
 
-  const handleCriar = () => {
-    const id = sessionStorage.getItem('id');
-    
-    toggleModal(); // Fechar o modal após a ação
-  };
+ 
   const handleNomeChange = (e) => {
-    setNomeTurma(e.target.value);
+    setClassName(e.target.value);
   };
+
+  
+
+
+
   return (
     <>
     <div style={styles.container}>
@@ -60,9 +139,8 @@ const MyClassesHeaderBar = () => {
           <p>{studentLogin ? 'Digite o código da turma': 'Digite o nome da turma'}</p>
           <input
               type="text"
-              placeholder="Nome da turma"
               style={styles.inputField}
-              value={nomeTurma}  // O valor do campo será o estado nomeTurma
+              value={className}  // O valor do campo será o estado nomeTurma
               onChange={handleNomeChange} // Atualiza o estado nomeTurma
             />
           <div style={styles.modalActions}>
