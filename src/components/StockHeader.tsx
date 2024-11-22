@@ -94,10 +94,12 @@ const StockHeader = ({ index, stockId }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          input: {
-            stockId: acao.id,
-            moneyAmount: acao.currentPrice * buyQuantity
-          }
+          input: [
+            {
+              stockId: acao.id,
+              moneyAmount: acao.currentPrice * buyQuantity
+            }
+          ]
         }),
       });
 
