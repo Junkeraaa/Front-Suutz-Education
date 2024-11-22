@@ -14,7 +14,7 @@ const InsideStock = () => {
     <div style={styles.container}>
         <MainHeaderLeft/>
         <div style={styles.insideClass}>
-          <StockHeader index={imageId}/>
+          <StockHeader index={imageId} stockId={stockId}/>
           <div style={styles.dashboard}>
             <StockDashboard stockId={stockId}/>
           </div>

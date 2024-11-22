@@ -133,27 +133,33 @@ const MyClassesHeaderBar = () => {
     </div>
     
     {showModal && (
-      <div style={styles.modalOverlay}>
-        <div style={styles.modalContent}>
-          <h2>{studentLogin ? 'Adicionar Turma' : 'Criar Nova Turma'}</h2>
-          <p>{studentLogin ? 'Digite o código da turma': 'Digite o nome da turma'}</p>
-          <input
-              type="text"
-              style={styles.inputField}
-              value={className}  // O valor do campo será o estado nomeTurma
-              onChange={handleNomeChange} // Atualiza o estado nomeTurma
-            />
-          <div style={styles.modalActions}>
-            <button onClick={toggleModal} style={styles.cancelButton}>
-              Cancelar
-            </button>
-            <button style={styles.saveButton} onClick={handleCriar}>
-              {studentLogin ? 'Adicionar' : 'Criar'}
-            </button>
-          </div>
-        </div>
+  <div
+    style={styles.modalOverlay}
+    onClick={(e) => {
+      if (e.target === e.currentTarget) toggleModal();
+    }}
+  >
+    <div style={styles.modalContent}>
+      <h2>{studentLogin ? 'Adicionar Turma' : 'Criar Nova Turma'}</h2>
+      <p>{studentLogin ? 'Digite o código da turma' : 'Digite o nome da turma'}</p>
+      <input
+        type="text"
+        style={styles.inputField}
+        value={className}
+        onChange={handleNomeChange}
+      />
+      <div style={styles.modalActions}>
+        <button onClick={toggleModal} style={styles.cancelButton}>
+          Cancelar
+        </button>
+        <button style={styles.saveButton} onClick={handleCriar}>
+          {studentLogin ? 'Adicionar' : 'Criar'}
+        </button>
       </div>
-    )}
+    </div>
+  </div>
+)}
+
   </>
   );
 };

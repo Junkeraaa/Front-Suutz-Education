@@ -6,6 +6,8 @@ import NewsLogo from '../assets/svg/newsPaperLogo.svg'
 import PersonalBalance from './PersonalBalance';
 
 const BrokerHeader = ({tipo}) => {
+  const role = sessionStorage.getItem('role')
+  const showPersonalBalance = role === 'student'; 
   if(tipo == 'brokerHeader'){
     return (
       <div style={styles.container}>
@@ -27,7 +29,7 @@ const BrokerHeader = ({tipo}) => {
                       </div>
                   </div>
                 </div>
-                <PersonalBalance/>   
+                {showPersonalBalance && <PersonalBalance />}  
             </div>       
           </div>
       </div>
@@ -52,7 +54,7 @@ const BrokerHeader = ({tipo}) => {
 
 
               </div>
-                <PersonalBalance/>   
+              {showPersonalBalance && <PersonalBalance />}
             </div>       
           </div>
       </div>
@@ -71,7 +73,7 @@ const BrokerHeader = ({tipo}) => {
                   <div style={styles.textUser}>Bem vindo! Luis</div>
                   </div>
                 </div>
-                <PersonalBalance/>   
+                {showPersonalBalance && <PersonalBalance />} 
             </div>       
           </div>
       </div>

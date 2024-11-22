@@ -1,6 +1,7 @@
 // src/screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 import '../global.css'; 
 
 const LoginScreen = () => {
@@ -32,13 +33,24 @@ const LoginScreen = () => {
       data = data.data
 
       if (response.ok) {
+        const alunoId = data.id
+        const dataRole = data.role
         alert('Login realizado com sucesso!');
         sessionStorage.setItem('token', data.token); // Armazenar o token na sessão
         sessionStorage.setItem('name', data.name);
         sessionStorage.setItem('role', data.role);
         sessionStorage.setItem('id', data.id);
 
-        
+        if(dataRole == 'student'){
+          try {
+            const response = await axios.post(`http://localhost:4000/wallet/create/${alunoId}`);
+            console.log('rsposta criar carteira:', response.data); // Verifica o formato dos dados recebidos
+            
+        } catch (error) {
+            console.error('Erro ao criar carteira aluno:', error);
+        }
+        }
+      
         
         navigate('/myClasses'); // Redirecionar para a nova página
       } else {
