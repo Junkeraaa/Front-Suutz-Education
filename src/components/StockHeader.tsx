@@ -19,6 +19,7 @@ const StockHeader = ({ index, stockId }) => {
   const [buyQuantity, setBuyQuantity] = useState(0);
   const [sellQuantity, setSellQuantity] = useState(0);
   const walletId = sessionStorage.getItem('walletId')
+  const [stockWallet, setStockWallet] = useState(0);
   const [stockBalance, setStockBalance] = useState(null); // Estado para armazenar o saldo
 
   const imagens = {
@@ -44,6 +45,20 @@ const StockHeader = ({ index, stockId }) => {
         const response = await axios.get(`http://localhost:4000/stocks/${stockId}`);
         setAcao(response.data.data);
         console.log('acao', acao)
+
+        const response2 = await axios.get(`http://localhost:4000/wallet/${walletId}/stocks`);
+
+        let arrayAcoes = response2.data.data
+        for(let i = 0; i < arrayAcoes.length; i++){
+          if(arrayAcoes[i].stockId == stockId){
+            console.log(arrayAcoes[i], 'oi')
+            setStockWallet(arrayAcoes[i].stockAmount)
+          }
+        }
+
+
+
+
       } catch (error) {
         console.error('Erro ao buscar dados da API:', error);
       }
@@ -113,7 +128,41 @@ const StockHeader = ({ index, stockId }) => {
       
       
       setStockBalance(data.data); // Atualiza o estado com o saldo retornado
-      sessionStorage.setItem('walletId', data.data.id);
+
+      console.log('data da wallet', stockBalance)
+    } catch (error) {
+      console.error('Erro ao comprar acao:', error);
+    } 
+  }
+
+  const handleSell = async () =>{
+    try {
+      const response = await fetch(`http://localhost:4000/stocks/sell/wallet/${walletId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          input: [
+            {
+              stockId: acao.id,
+              stockAmount: sellQuantity
+            }
+          ]
+        }),
+      });
+
+      console.log('resposta sell', response)
+
+      if (!response.ok) {
+        throw new Error('Erro ao comprar acao');
+      }
+
+      const data = await response.json();
+      
+      
+      setStockBalance(data.data); // Atualiza o estado com o saldo retornado
+
       console.log('data da wallet', stockBalance)
     } catch (error) {
       console.error('Erro ao comprar acao:', error);
@@ -182,10 +231,11 @@ const StockHeader = ({ index, stockId }) => {
               />
               <div>Total: R$ {(acao.currentPrice * sellQuantity).toFixed(2)}</div>
               <div style={styles.modalActions}>
-                <button onClick={toggleModal} style={styles.cancelButton}>
+                <button onClick={handleSell} style={styles.cancelButton}>
                   Sell
                 </button>
               </div>
+              <div>Você possui {stockWallet} unidades</div>
             </div>
           </div>
         </div>
