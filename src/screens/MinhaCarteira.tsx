@@ -9,32 +9,25 @@ import axios from 'axios';
 const MinhaCarteira = () => {
 
   const walletId = sessionStorage.getItem('walletId')
-  const [acoes, setAcoes] = useState({});
+  const [acoes, setAcoes] = useState([]);
 
   useEffect(() => {
     const fetchAcoes = async () => {
       try {
         const response = await axios.get(`http://localhost:4000/wallet/${walletId}/stocks`);
-
-        console.log(response.data)
-        const array = response.data
-        const arrayAcoes = [];
-
-        array.forEach(acao => {
-          
-
-        });
-
+        setAcoes(response.data.data); // Atualiza o estado com os dados da API
+        console.log('response', response.data.data)
       } catch (error) {
         console.error('Erro ao buscar dados da API:', error);
       }
     };
 
-    fetchAcoes();
-    const intervalId = setInterval(fetchAcoes, 3000);
+    fetchAcoes(); // Chamada inicial
+    const intervalId = setInterval(fetchAcoes, 3000); // Atualiza a cada 3 segundos
 
-    return () => clearInterval(intervalId);
-  });
+    return () => clearInterval(intervalId); // Limpa o intervalo quando o componente desmonta
+  }, [walletId]);
+
 
 
 
@@ -47,19 +40,26 @@ const MinhaCarteira = () => {
         <div style={styles.insideClass}>
           <BrokerHeader tipo={'minhaCarteira'}/>
           <div style={styles.dashboard}>
-            {/* {acoes.map((acoesItem, index) => (
+            {acoes.map((acoesItem, index) => (
                 <div key={index} style={styles.class}>
                   <div>
                     <div style={styles.classHeader}>
-                      oi
+                      {acoesItem.name}
                     </div>
-                    oi
+                    Value Now:
+                    <div>
+                      {acoesItem.currentPrice}
+                    </div>
+                    Você tem:
+                    <div>
+                    {acoesItem.stockAmount}
+                    </div>
                   </div>
                   <div style={styles.classFooter}>
                     oi
                   </div>
                 </div>
-              ))} */}
+              ))}
           </div>
         </div>
     </div>
@@ -88,8 +88,38 @@ const styles = {
   dashboard:{
     display:"flex",
     flexDirection:"row",
-    boxSizing:'border-box'
-  }
+    boxSizing:'border-box',
+    width:"70vw"
+  },
+
+  class:{
+    display:"flex",
+    flexDirection:"column",
+    justifyContent:"space-between",
+    backgroundColor:"#ededed",
+    border:"1px solid",
+    borderRadius:"15px",
+    borderColor:"#8d8d8d",
+    width:"40vw",
+    height:"40vh",
+    marginLeft:"1vw",
+    paddingLeft:"0.5vw",
+    paddingRight:"0.5vw",
+    marginBottom:"2vh"
+  },
+  classHeader:{
+    color:'black',
+    fontSize:"40px",
+    fontWeigth:"bold",
+  },
+  classFooter:{
+    color:'black',
+    fontSize:"20px",
+    fontWeigth:"bold",
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"space-between",
+  },
 
 };
 
