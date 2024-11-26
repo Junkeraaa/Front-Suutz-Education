@@ -61,7 +61,10 @@ const MinhaCarteira = () => {
                 </div>
               ))}
           </div>
-        </div>
+        </div>  
+        <div style={styles.totalMoneyInvested}>
+              a
+          </div>
     </div>
   );
 };
@@ -82,14 +85,14 @@ const styles = {
     width:"84vw",
     heigth:"100vh",
     fontFamily:"freeMono",
-    fontWeigth:"bold",
+    fontWeight:"bold",
     boxSizing:'border-box'
   },
   dashboard:{
     display:"flex",
     flexDirection:"row",
     boxSizing:'border-box',
-    width:"70vw"
+    width:"65vw"
   },
 
   class:{
@@ -110,16 +113,22 @@ const styles = {
   classHeader:{
     color:'black',
     fontSize:"40px",
-    fontWeigth:"bold",
+    fontWeight:"bold",
   },
   classFooter:{
     color:'black',
     fontSize:"20px",
-    fontWeigth:"bold",
+    fontWeight:"bold",
     display:"flex",
     flexDirection:"row",
     justifyContent:"space-between",
   },
+
+  totalMoneyInvested:{
+    backgroundColor:"red",
+    width:"5vw",
+    height:'90vh'
+  }
 
 };
 

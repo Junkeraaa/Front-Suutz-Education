@@ -35,7 +35,7 @@ const styles = {
     width:"84vw",
     heigth:"100vh",
     fontFamily:"freeMono",
-    fontWeigth:"bold",
+    fontWeight:"bold",
     boxSizing:'border-box'
   },
   dashboard:{

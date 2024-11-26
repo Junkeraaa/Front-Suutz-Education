@@ -63,7 +63,7 @@ const styles = {
     fontFamily:'freeMono',
     color:"white",
     fontSize:'25px',
-    fontWeigth:"bold",
+    fontWeight:"bold",
     backgroundColor: '#040404',
     display: 'flex',
     flexDirection: "column",

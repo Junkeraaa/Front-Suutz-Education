@@ -97,7 +97,7 @@ const styles = {
       width:"84vw",
       heigth:"100vh",
       fontFamily:"freeMono",
-      fontWeigth:"bold"
+      fontWeight:"bold"
     },
     cabecalho:{
       paddingLeft:"2vw",
@@ -137,14 +137,14 @@ const styles = {
       color:"black",
       fontFamily:'freeMono',
       fontSize:'35px',
-      fontWeigth:"bold",
+      fontWeight:"bold",
       
       display:"flex",
       flexDirection:"row"
     },
     textUser:{
       fontSize:'15px',
-      fontWeigth:"bold"
+      fontWeight:"bold"
     },
     newsLogo:{
         width:"35px"

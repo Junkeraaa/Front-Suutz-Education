@@ -105,7 +105,7 @@ const styles = {
     width:"84vw",
     heigth:"100vh",
     fontFamily:"freeMono",
-    fontWeigth:"bold"
+    fontWeight:"bold"
   },
   dashboard:{
     display:"flex",
@@ -132,12 +132,12 @@ const styles = {
   classHeader:{
     color:'black',
     fontSize:"40px",
-    fontWeigth:"bold",
+    fontWeight:"bold",
   },
   classFooter:{
     color:'black',
     fontSize:"20px",
-    fontWeigth:"bold",
+    fontWeight:"bold",
     display:"flex",
     flexDirection:"row",
     justifyContent:"space-between",
