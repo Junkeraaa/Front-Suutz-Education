@@ -8,7 +8,7 @@ import NewsDashboard from '../components/NewsDashboard';
 const SuutzNews = () => {
   return (
     <div style={styles.container}>
-        <MainHeaderLeft tipo={'broker'}/>
+        <MainHeaderLeft />
         <div style={styles.insideClass}>
           <BrokerHeader tipo={'suutzNews'}/>
           <div style={styles.dashboard}>

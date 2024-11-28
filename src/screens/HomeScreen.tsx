@@ -55,6 +55,7 @@ const styles: Record<string, React.CSSProperties> = {
     flexDirection: 'column',
     minHeight: '100vh',
     justifyContent: 'space-between',
+    
   },
   topBar: {
     display: 'flex',
@@ -63,13 +64,12 @@ const styles: Record<string, React.CSSProperties> = {
     padding: '10px 20px',
     backgroundColor: '#ffffff',
     borderBottom: '1px solid #e0e0e0',
-    fontFamily: 'serif',
+    height:"8vh"
   },
   logo: {
     margin: 0,
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    fontFamily: 'serif',
   },
   nav: {
     display: 'flex',
@@ -80,14 +80,16 @@ const styles: Record<string, React.CSSProperties> = {
     border: 'none',
     cursor: 'pointer',
     fontSize: '1rem',
-    color: '#007bff',
-    textDecoration: 'underline',
+    color: 'black',
+    textDecoration: 'none',
   },
   mainContent: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    fontFamily:"freeMono",
+  
   },
   imageContainer: {
     position: 'relative' as const, // Corrigido para 'relative' explicitamente
@@ -116,10 +118,9 @@ const styles: Record<string, React.CSSProperties> = {
     zIndex: 1,
     color: '#ffffff',
     padding: '0 20px',
-    fontFamily: 'serif',
   },
   title: {
-    fontSize: '2rem',
+    fontSize: '4rem',
     marginBottom: '10px',
     fontWeight: 'bold',
   },
@@ -129,11 +130,10 @@ const styles: Record<string, React.CSSProperties> = {
   },
   signupButton: {
     padding: '10px 20px',
-    fontSize: '1rem',
+    fontSize: '2rem',
     borderRadius: '20px',
     backgroundColor: '#ffffff',
     color: '#000000',
-    fontFamily: 'serif',
     border: 'none',
     cursor: 'pointer',
   },

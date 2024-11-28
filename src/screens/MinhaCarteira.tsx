@@ -10,6 +10,7 @@ const MinhaCarteira = () => {
 
   const walletId = sessionStorage.getItem('walletId')
   const [acoes, setAcoes] = useState([]);
+  const [totalInvested, setTotalInvested] = useState(0);
 
   useEffect(() => {
     const fetchAcoes = async () => {
@@ -20,6 +21,14 @@ const MinhaCarteira = () => {
       } catch (error) {
         console.error('Erro ao buscar dados da API:', error);
       }
+
+      let value = 0
+      acoes.forEach(acao => {
+        console.log('oioi', acao)
+        value += acao.currentPrice * acao.stockAmount
+      });
+      setTotalInvested(value)
+
     };
 
     fetchAcoes(); // Chamada inicial
@@ -36,7 +45,7 @@ const MinhaCarteira = () => {
 
   return (
     <div style={styles.container}>
-        <MainHeaderLeft tipo={'broker'}/>
+        <MainHeaderLeft/>
         <div style={styles.insideClass}>
           <BrokerHeader tipo={'minhaCarteira'}/>
           <div style={styles.dashboard}>
@@ -57,7 +66,7 @@ const MinhaCarteira = () => {
                         </div>
                       </div>
                       <div style={styles.classFooter}>
-                        oi
+                        +30%
                       </div>
                     </div>
                   ))}
@@ -67,7 +76,7 @@ const MinhaCarteira = () => {
                 Total money invested
               </div>
               <div style={styles.totalMValue}>
-                R$1300
+              R${totalInvested.toFixed(2)}
               </div>
             </div>
           </div>

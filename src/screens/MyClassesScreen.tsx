@@ -112,7 +112,9 @@ const styles = {
     flexWrap:'wrap',
     flexDirection:"row",
     marginLeft:"0.5vw",
-    marginTop:"2vh"
+    marginTop:"2vh",
+    overflow:"auto",
+    height:'85vh'
   },
   class:{
     display:"flex",

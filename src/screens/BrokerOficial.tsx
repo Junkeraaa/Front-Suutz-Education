@@ -7,7 +7,7 @@ import BrokerDashboard from '../components/BrokerDashboard';
 const BrokerOficial = () => {
   return (
     <div style={styles.container}>
-        <MainHeaderLeft tipo={'broker'}/>
+        <MainHeaderLeft />
         <div style={styles.insideClass}>
           <BrokerHeader tipo={'brokerHeader'}/>
           <div style={styles.dashboard}>

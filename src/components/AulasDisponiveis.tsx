@@ -23,7 +23,7 @@ const AulasDisponiveis = ({ aulas }) => {
           <div style={styles.cardAulaHeader}>
             {aula.title}
           </div>  
-          <p style={styles.p}>{aula.content}</p>
+          <p style={styles.p}>Conteudo</p>
         </div>  
       ))}
     </div>

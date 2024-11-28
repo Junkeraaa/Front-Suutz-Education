@@ -132,7 +132,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        overflow: 'hidden',
+        overflow: 'auto',
         height: '80vh',
         width: '84vw',
         marginTop: '2vh',

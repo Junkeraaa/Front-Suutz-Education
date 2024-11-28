@@ -9,7 +9,7 @@ import news2 from '../assets/svg/svgnews2.svg'
 import { useNavigate } from 'react-router-dom';
 import '../global.css'; 
 
-const MainHeaderLeft = ({tipo}) => {
+const MainHeaderLeft = () => {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -34,16 +34,16 @@ const MainHeaderLeft = ({tipo}) => {
         <div style={styles.menu} onClick={() => navigate('/brokerOficial')}>
         <img src={brokerLogo} style={styles.dLogo}/> Broker oficial
         </div>
-              {tipo === 'broker' && (
+               
         <div style={styles.menu} onClick={() => navigate('/minhaCarteira')}>
           <img src={brokerLogo} style={styles.dLogo}/> Minha carteira
         </div>
-      )}
-            {tipo === 'broker' && (
+      
+         
         <div style={styles.menu} onClick={() => navigate('/suutzNews')}>
           <img src={newsLogo} style={styles.dLogo}/> Suutz News
         </div>
-      )}
+    
 
       </div>
       <div style={styles.rodape}>
