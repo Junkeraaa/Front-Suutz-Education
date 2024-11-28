@@ -26,6 +26,7 @@ import {
   Legend,
 } from 'chart.js';
 import { ChartData } from 'chart.js'; 
+import { displayName } from 'react-quill';
 
 ChartJS.register(
   CategoryScale,
@@ -63,7 +64,7 @@ const StockDashboard = ({ stockId }) => {
         labels: data.map((item) => item.at.toString()),
         datasets: [
           {
-            label: 'Dataset Dinâmico',
+            label: '',
             data: data.map((item) => item.price),
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -158,35 +159,173 @@ const StockDashboard = ({ stockId }) => {
           <div style={styles.stockName}>
             {acao.name}
           </div>
-          <div style={{ width: '100%', height: '90%', margin: 'auto' }}>
+          <div style={{ width:"50vw", height:"55vh" }}>
             {chartData ? (
               <Line
-                data={chartData}
-                options={{
-                  animation: { easing: 'linear', duration: 0 },
-                  responsive: true,
-                  elements: {
-                    point: {
-                      pointStyle: false,
-                    },
-                  },
-                  plugins: {
-                    legend: {
-                      position: 'top',
-                    },
+              data={chartData}
+              options={{
+                responsive: true,
+                animation: {
+                  easing: 'linear',
+                  duration: 0,
+                },
+                scales: {
+                  x: {
                     title: {
                       display: true,
-                      text: 'Gráfico Dinâmico com Chart.js',
+                      text: 'Horário', // Rótulo do eixo X
+                      color: '#555', // Cor do texto
+                      font: {
+                        family: 'Arial',
+                        size: 16,
+                        weight: 'bold',
+                      },
+                    },
+                    ticks: {
+                      color: '#888', // Cor dos ticks (valores do eixo)
+                      font: {
+                        size: 12,
+                      },
+                      callback: function (value, index, ticks) {
+                        // Formatação personalizada (ex.: exibir apenas os horários)
+                        const label = this.getLabelForValue(value);
+                        return label.slice(11, 16); // Exibe HH:MM de uma data ISO
+                      },
+                    },
+                    grid: {
+                      display: false, // Oculta as linhas de grade do eixo X
                     },
                   },
-                }}
-              />
+                  y: {
+                    title: {
+                      display: true,
+                      text: 'Preço (R$)', // Rótulo do eixo Y
+                      color: '#555',
+                      font: {
+                        family: 'Arial',
+                        size: 16,
+                        weight: 'bold',
+                      },
+                    },
+                    ticks: {
+                      color: '#888',
+                      font: {
+                        size: 12,
+                      },
+                      callback: function (value, index, ticks) {
+                        // Formatação personalizada (ex.: prefixo "R$")
+                        return `R$ ${value.toFixed(2)}`;
+                      },
+                    },
+                    grid: {
+                      color: '#ddd', // Cor das linhas de grade do eixo Y
+                      borderDash: [5, 5], // Estilo pontilhado das linhas
+                    },
+                    min: 0, // Define o valor mínimo do eixo Y
+                    max: Math.max(...chartData.datasets[0].data) + 10, // Define o valor máximo dinamicamente
+                  },
+                },
+                plugins: {
+                  legend: {
+                    position: 'top', // Define a posição da legenda
+                    labels: {
+                      color: '#555', // Cor dos textos da legenda
+                      font: {
+                        size: 14,
+                      },
+                    },
+                  },
+                  tooltip: {
+                    callbacks: {
+                      label: function (context) {
+                        // Personaliza o texto do tooltip
+                        return `Preço: R$ ${context.raw.toFixed(2)}`;
+                      },
+                    },
+                  },
+                },
+              }}
+            />
             ) : (
               <p>Carregando dados do gráfico...</p>
             )}
           </div>
         </div>
-        <div style={styles.stockInfos}></div>
+        <div style={styles.stockInfos}>
+          <div>Infos</div>
+          <div style={styles.dados}>
+            <div>
+              Fechamento anterior
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Abertura
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Negócios
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Volume
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Min - Max (Dia)
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Variacao (Dia)
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Variacao (Mes)
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Variacao (2024)
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+          <div style={styles.dados}>
+            <div>
+              Variacao (52 Semanas)
+            </div>
+            <div>
+              Valor
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -203,6 +342,14 @@ const styles = {
     width: '84vw',
     marginTop: '2vh',
     justifyContent: 'center',
+  },
+
+  dados:{
+    display:"flex",
+    flexDirection:"row",
+    width:"26vw",
+    justifyContent:"space-between",
+    marginTop:"2px"
   },
   dashBoxes: {
     marginTop: '1em',
@@ -246,15 +393,21 @@ const styles = {
   },
   stockGraph: {
     display: 'flex',
+    flexDirection:"column",
     width: '100%',
     height: '58vh',
   },
   stockInfos: {
     width: '39vw',
     height: '58vh',
+    display:'flex',
+    flexDirection:"column",
+    paddingTop:"4em",
+    paddingRight:'1em',
+    backgroundColor:'red'
   },
   stockName: {
-    fontSize: '2em',
+    fontSize: '1.5em',
   },
 };
 

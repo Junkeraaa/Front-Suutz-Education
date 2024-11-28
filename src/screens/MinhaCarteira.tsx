@@ -40,31 +40,38 @@ const MinhaCarteira = () => {
         <div style={styles.insideClass}>
           <BrokerHeader tipo={'minhaCarteira'}/>
           <div style={styles.dashboard}>
-            {acoes.map((acoesItem, index) => (
-                <div key={index} style={styles.class}>
-                  <div>
-                    <div style={styles.classHeader}>
-                      {acoesItem.name}
+            <div style={styles.blocoAcoes}>
+                {acoes.map((acoesItem, index) => (
+                    <div key={index} style={styles.class}>
+                      <div>
+                        <div style={styles.classHeader}>
+                          {acoesItem.name}
+                        </div>
+                        Value Now:
+                        <div>
+                          {acoesItem.currentPrice}
+                        </div>
+                        Você tem:
+                        <div>
+                        {acoesItem.stockAmount}
+                        </div>
+                      </div>
+                      <div style={styles.classFooter}>
+                        oi
+                      </div>
                     </div>
-                    Value Now:
-                    <div>
-                      {acoesItem.currentPrice}
-                    </div>
-                    Você tem:
-                    <div>
-                    {acoesItem.stockAmount}
-                    </div>
-                  </div>
-                  <div style={styles.classFooter}>
-                    oi
-                  </div>
-                </div>
-              ))}
+                  ))}
+            </div>
+            <div style={styles.totalMoneyInvested}>
+              <div style={styles.totalMText}>
+                Total money invested
+              </div>
+              <div style={styles.totalMValue}>
+                R$1300
+              </div>
+            </div>
           </div>
         </div>  
-        <div style={styles.totalMoneyInvested}>
-              a
-          </div>
     </div>
   );
 };
@@ -88,11 +95,17 @@ const styles = {
     fontWeight:"bold",
     boxSizing:'border-box'
   },
+
+  blocoAcoes:{
+    display:'flex',
+    flexDirection:'row',
+    width:'65vw'
+  },
   dashboard:{
     display:"flex",
     flexDirection:"row",
     boxSizing:'border-box',
-    width:"65vw"
+    width:"84vw"
   },
 
   class:{
@@ -125,9 +138,21 @@ const styles = {
   },
 
   totalMoneyInvested:{
-    backgroundColor:"red",
-    width:"5vw",
-    height:'90vh'
+    width:"18vw",
+    height:'90vh',
+    borderLeft:"2px solid black",
+    marginLeft:"3em"
+  },
+
+  totalMText:{
+    marginLeft:"1em",
+    color:'black'
+  },
+
+  totalMValue:{
+    marginLeft:"0.5em",
+    color:'black',
+    fontSize:"2rem"
   }
 
 };
