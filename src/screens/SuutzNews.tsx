@@ -3,6 +3,7 @@ import '../global.css';
 import BrokerHeader from '../components/BrokerHeader';
 import BrokerDashboard from '../components/BrokerDashboard';
 import NewsDashboard from '../components/NewsDashboard';
+import NewsHeader from '../components/NewsHeader';
 
 
 const SuutzNews = () => {
@@ -10,7 +11,7 @@ const SuutzNews = () => {
     <div style={styles.container}>
         <MainHeaderLeft />
         <div style={styles.insideClass}>
-          <BrokerHeader tipo={'suutzNews'}/>
+          <NewsHeader/>
           <div style={styles.dashboard}>
             <NewsDashboard/>
           </div>
