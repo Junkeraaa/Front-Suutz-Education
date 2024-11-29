@@ -64,7 +64,7 @@ const InsideClass = () => {
     <div style={styles.container}>
         <MainHeaderLeft/>
         <div style={styles.insideClass}>
-          <MyClassesHeaderBar/>
+          <MyClassesHeaderBar tipo={'ic'}/>
           <div style={styles.dashboard}>
             <AulasDisponiveis aulas={classData.lessons}/>
             <ClassMembers members={classData.membersName}/>

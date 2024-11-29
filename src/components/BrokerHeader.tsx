@@ -1,88 +1,186 @@
-import mGlassLogo from '../assets/svg/mGlassLogo.svg'
+import { useState, useEffect } from 'react';
+import mGlassLogo from '../assets/svg/mGlassLogo.svg';
 import '../global.css'; 
-import SideBar from './SideBar';
-import SideBarBrokerHeader from './SideBarBrokerHeader';
-import NewsLogo from '../assets/svg/newsPaperLogo.svg'
-import PersonalBalance from './PersonalBalance';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-const BrokerHeader = ({tipo}) => {
-  const role = sessionStorage.getItem('role')
-  const showPersonalBalance = role === 'student'; 
-  if(tipo == 'brokerHeader'){
-    return (
+const BrokerHeader = ({ tipo }) => {
+  const navigate = useNavigate();
+  const [newsTitle, setNewsTitle] = useState('');
+  const [newsContent, setNewsContent] = useState('');
+  const [role, setRole] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const { classroomId } = useParams();
+
+  useEffect(() => {
+    const storedRole = sessionStorage.getItem('role');
+    if (storedRole) {
+      setRole(storedRole);
+    }
+  }, []);
+
+  const handleCreateNews = async () => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    if (role === 'professor') {
+      try {
+        const response = await fetch('http://localhost:4000/news/createNews', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            input: [
+              {
+                title: newsTitle,     // Título da notícia
+                description: newsContent  // Conteúdo da notícia
+              }
+            ]
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Erro ao criar notícia');
+        }
+        else{
+          window.location.reload()
+        }
+
+        const resposta = await response.json();
+        console.log('Notícia criada:', resposta);
+        toggleModal(); // Fecha o modal após a criação da notícia
+      } catch (error) {
+        console.error('Erro ao criar notícia:', error);
+      }
+    }
+  };
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const handleTitleChange = (e) => {
+    setNewsTitle(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setNewsContent(e.target.value);
+  };
+
+  return (
+    <>
       <div style={styles.container}>
-          <div style={styles.myClasses}>
-            <div style={styles.cabecalho}>
-                <div style={styles.headerLeft}>
-                  <div style={styles.header}>
-                  <div>Broker - Oficial</div>
-                  {/* broker aula  */}
-                  <div style={styles.textUser}>Bem vindo! Luis</div>
-                  </div>
-                  <SideBarBrokerHeader/>
-                  <div style={styles.headerRight}>
-                      <div style={styles.suutzNews}>Suutz News <br/>
-                      O maior portal de notícias
-                      </div>
-                      <div>
-                          <img src={NewsLogo} alt="" style={styles.newsLogo}/>
-                      </div>
-                  </div>
-                </div>
-                {showPersonalBalance && <PersonalBalance />}  
-            </div>       
+        <div style={styles.myClasses}>
+          <div style={styles.cabecalho}>
+            <div style={styles.headerLeft}>
+              <div>Suutz News</div>
+              <div style={styles.textUser}>Bem vindo! {sessionStorage.getItem('name')}</div>
+            </div>
+
+            <div style={styles.headerRight}>
+              {role === 'professor' && (
+                <button style={styles.btnAddTurma} onClick={toggleModal}>
+                  Adicionar notícia
+                </button>
+              )}
+            </div>
           </div>
+        </div>
       </div>
-    );
-  }
 
-  else if(tipo == 'suutzNews'){
-    return (
-      <div style={styles.container}>
-          <div style={styles.myClasses}>
-            <div style={styles.cabecalho}>
-              <div style={styles.sN}>
-
-                  <div>
-                    <div style={styles.newsHeader}>Suutz News</div>
-                    <div style={styles.newsSubHeader}>O maior portal de notícias</div>
-                  </div>
-                
-                  <div>
-                    <img src={NewsLogo} alt="" style={styles.newsLogo2}/>
-                  </div>
-
-
-              </div>
-              {showPersonalBalance && <PersonalBalance />}
-            </div>       
+      {showModal && (
+        <div
+          style={styles.modalOverlay}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) toggleModal();
+          }}
+        >
+          <div style={styles.modalContent}>
+            <h2>Adicionar nova notícia</h2>
+            <p>Digite o título e o conteúdo da notícia</p>
+            <input
+              type="text"
+              style={styles.inputField}
+              placeholder="Título da notícia"
+              value={newsTitle}
+              onChange={handleTitleChange}
+            />
+            <textarea
+              style={styles.inputField}
+              placeholder="Conteúdo da notícia"
+              value={newsContent}
+              onChange={handleContentChange}
+            />
+            <div style={styles.modalActions}>
+              <button onClick={toggleModal} style={styles.cancelButton}>
+                Cancelar
+              </button>
+              <button style={styles.saveButton} onClick={handleCreateNews}>
+                Criar notícia
+              </button>
+            </div>
           </div>
-      </div>
-    )
-  }
-
-  else{
-    return(
-      <div style={styles.container}>
-          <div style={styles.myClasses}>
-            <div style={styles.cabecalho}>
-                <div style={styles.headerLeft}>
-                  <div style={styles.header}>
-                  <div>Minha carteira</div>
-                  {/* broker aula  */}
-                  <div style={styles.textUser}>Bem vindo! Luis</div>
-                  </div>
-                </div>
-                {showPersonalBalance && <PersonalBalance />} 
-            </div>       
-          </div>
-      </div>
-    )
-  }
-  
+        </div>
+      )}
+    </>
+  );
 };
 
 const styles = {
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Aqui é onde a transparência é aplicada
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
+  modalContent: {
+    backgroundColor: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    width: '400px',
+    marginLeft:"auto",
+    marginRight: '20px', // Adiciona um pequeno espaço entre o modal e a borda direita
+    textAlign: 'center',
+  },
+  inputField: {
+    width: '100%',
+    padding: '10px',
+    marginTop: '10px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  },
+  modalActions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '20px',
+  },
+  cancelButton: {
+    backgroundColor: 'red',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '10px 20px',
+    cursor: 'pointer',
+  },
+  saveButton: {
+    backgroundColor: 'green',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    padding: '10px 20px',
+    cursor: 'pointer',
+  },
     container: {
       display: 'flex',
       flexDirection:"row",
@@ -138,9 +236,8 @@ const styles = {
       fontFamily:'freeMono',
       fontSize:'35px',
       fontWeight:"bold",
-      
       display:"flex",
-      flexDirection:"row"
+      flexDirection:"column"
     },
     textUser:{
       fontSize:'15px',

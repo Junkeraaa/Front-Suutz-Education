@@ -36,6 +36,7 @@ const styles = {
     display: 'flex',
     flexDirection: "column",
     height: "90vh",
+    overflow:'auto',
     width: "65vw",
     justifyContent: 'flex-start',
     paddingLeft: "1vw"

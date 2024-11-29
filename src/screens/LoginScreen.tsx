@@ -30,7 +30,6 @@ const LoginScreen = () => {
 
 
       if (response.ok) {
-        alert('Login realizado com sucesso!');
         sessionStorage.setItem('token', data.token); // Armazenar o token na sessão
         sessionStorage.setItem('name', data.name);
         sessionStorage.setItem('role', data.role);

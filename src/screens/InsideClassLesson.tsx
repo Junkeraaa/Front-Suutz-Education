@@ -7,10 +7,12 @@ import playButtonSvg from '../assets/svg/playButton.svg';
 import { useLocation } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Importa o estilo básico do Quill
+import { useNavigate } from 'react-router-dom';
 
 const InsideClassLesson = () => {
   const location = useLocation();
   const { aula } = location.state || {}; // Acessa o objeto 'aula'
+  const navigate = useNavigate();
 
   const [content, setContent] = useState(aula?.content || ''); // Estado para o conteúdo editável
   const [isProfessor, setIsProfessor] = useState(false); // Estado para verificar o tipo de usuário
@@ -54,7 +56,8 @@ const InsideClassLesson = () => {
         });
   
         if (response.ok) {
-          alert('Aula atualizada com sucesso!');
+          console.log('oi')
+          navigate(-1)
         } else {
           console.error('Erro ao salvar a aula');
           alert('Erro ao salvar a aula.');
