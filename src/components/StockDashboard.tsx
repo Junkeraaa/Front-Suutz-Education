@@ -148,11 +148,7 @@ const StockDashboard = ({ stockId }) => {
             {acao.maxPriceDay}
           </div>
         </div>
-        <div style={styles.boxYield}>
-          Dividend Yield
-          <div style={styles.boxVal}>
-          </div>
-        </div>
+        
       </div>
       <div style={styles.dashInfos}>
         <div style={styles.stockGraph}>
