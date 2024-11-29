@@ -20,7 +20,7 @@ const NewsDashboard = () => {
         // Busca as notícias da API
         const fetchNews = async () => {
             try {
-                const response = await axios.get('srv656114.hstgr.cloud:4000/news');
+                const response = await axios.get('http://srv656114.hstgr.cloud:4000/news');
                 console.log('Notícias recebidas:', response.data.data)
                 setNews(response.data.data || response.data);
             } catch (error) {
@@ -37,7 +37,7 @@ const NewsDashboard = () => {
         try {
             const token = sessionStorage.getItem('token');
             const response = await axios.put(
-                `srv656114.hstgr.cloud:4000/news/edit/${newsId}`,
+                `http://srv656114.hstgr.cloud:4000/news/edit/${newsId}`,
                 { content: updatedContent },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

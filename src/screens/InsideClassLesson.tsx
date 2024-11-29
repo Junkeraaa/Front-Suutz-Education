@@ -44,7 +44,7 @@ const InsideClassLesson = () => {
     const handleSave = async () => {
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch(`srv656114.hstgr.cloud:3000/api/lesson/editLesson/${aula.id}`, {
+        const response = await fetch(`http://srv656114.hstgr.cloud:3000/api/lesson/editLesson/${aula.id}`, {
           method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`,

@@ -25,7 +25,7 @@ const MyClassesScreen = () => {
 
       try {
         // Fazer a requisição ao backend com o token no cabeçalho
-        const response = await fetch('srv656114.hstgr.cloud:3000/api/class/listClassCards', {
+        const response = await fetch('http://srv656114.hstgr.cloud:3000/api/class/listClassCards', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

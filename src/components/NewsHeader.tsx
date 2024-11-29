@@ -28,7 +28,7 @@ const NewsHeader = () => {
 
     if (role === 'professor') {
       try {
-        const response = await fetch('srv656114.hstgr.cloud:4000/news/createNews', {
+        const response = await fetch('http://srv656114.hstgr.cloud:4000/news/createNews', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
