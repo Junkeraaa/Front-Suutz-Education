@@ -404,7 +404,6 @@ const styles = {
     flexDirection:"column",
     paddingTop:"4em",
     paddingRight:'1em',
-    backgroundColor:'red'
   },
   stockName: {
     fontSize: '1.5em',
