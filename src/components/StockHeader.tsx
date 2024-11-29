@@ -42,11 +42,11 @@ const StockHeader = ({ index, stockId }) => {
   useEffect(() => {
     const fetchAcao = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/stocks/${stockId}`);
+        const response = await axios.get(`srv656114.hstgr.cloud:4000/stocks/${stockId}`);
         setAcao(response.data.data);
         console.log('acao', acao)
 
-        const response2 = await axios.get(`http://localhost:4000/wallet/${walletId}/stocks`);
+        const response2 = await axios.get(`srv656114.hstgr.cloud:4000/wallet/${walletId}/stocks`);
 
         let arrayAcoes = response2.data.data
         for(let i = 0; i < arrayAcoes.length; i++){
@@ -74,7 +74,7 @@ const StockHeader = ({ index, stockId }) => {
     
     const fetchStocksByWalletId = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/wallet/${walletId}`, {
+        const response = await fetch(`srv656114.hstgr.cloud:4000/wallet/${walletId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ const StockHeader = ({ index, stockId }) => {
 
   const handleBuy = async () =>{
     try {
-      const response = await fetch(`http://localhost:4000/stocks/buy/wallet/${walletId}`, {
+      const response = await fetch(`srv656114.hstgr.cloud:4000/stocks/buy/wallet/${walletId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ const StockHeader = ({ index, stockId }) => {
 
   const handleSell = async () =>{
     try {
-      const response = await fetch(`http://localhost:4000/stocks/sell/wallet/${walletId}`, {
+      const response = await fetch(`srv656114.hstgr.cloud:4000/stocks/sell/wallet/${walletId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

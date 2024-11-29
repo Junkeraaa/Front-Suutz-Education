@@ -11,7 +11,7 @@ const PersonalBalance = () => {
     
     const fetchBalance = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/wallet/${id}`, {
+        const response = await fetch(`srv656114.hstgr.cloud:4000/wallet/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ const BrokerDashboard = () => {
     useEffect(() => {
         const fetchAcoes = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/stocks');
+                const response = await axios.get('srv656114.hstgr.cloud:4000/stocks');
                 console.log('Dados recebidos:', response.data); // Verifica o formato dos dados recebidos
 
                 // Ajuste se necessário com base na estrutura da resposta da API

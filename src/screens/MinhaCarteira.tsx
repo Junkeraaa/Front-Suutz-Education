@@ -13,7 +13,7 @@ const MinhaCarteira = () => {
   useEffect(() => {
     const fetchAcoes = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/wallet/${walletId}/stocks`);
+        const response = await axios.get(`srv656114.hstgr.cloud:4000/wallet/${walletId}/stocks`);
         const fetchedAcoes = response.data.data;
 
         setAcoes(fetchedAcoes); // Atualiza o estado com os dados da API

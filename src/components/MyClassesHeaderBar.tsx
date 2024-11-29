@@ -27,7 +27,7 @@ const MyClassesHeaderBar = ({ tipo }) => {
     if(tipo == 'ic' && role == 'professor'){
       try {
         console.log('oioioioioioioioioi', id)
-        const response = await fetch('http://localhost:3000/api/lesson/createLesson', {
+        const response = await fetch('srv656114.hstgr.cloud:3000/api/lesson/createLesson', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -57,7 +57,7 @@ const MyClassesHeaderBar = ({ tipo }) => {
     }
     else if (role === 'professor') {
       try {
-        const response = await fetch('http://localhost:3000/api/class/createClass', {
+        const response = await fetch('srv656114.hstgr.cloud:3000/api/class/createClass', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -80,7 +80,7 @@ const MyClassesHeaderBar = ({ tipo }) => {
     } else {
       const classroomCode = className;
       try {
-        const response = await fetch('http://localhost:3000/api/class/insertInClass', {
+        const response = await fetch('srv656114.hstgr.cloud:3000/api/class/insertInClass', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,

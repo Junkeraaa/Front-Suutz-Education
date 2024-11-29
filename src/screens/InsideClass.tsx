@@ -24,7 +24,7 @@ const InsideClass = () => {
         }
 
 
-        const response = await fetch(`http://localhost:3000/api/class/listClassInfosToFront?classroomId=${id}`, {
+        const response = await fetch(`srv656114.hstgr.cloud:3000/api/class/listClassInfosToFront?classroomId=${id}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

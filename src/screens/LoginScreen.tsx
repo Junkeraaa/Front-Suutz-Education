@@ -12,8 +12,8 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     const url = loginAsTeacher
-      ? 'http://localhost:3000/api/auth/login/teacher'
-      : 'http://localhost:3000/api/auth/login/customer';
+      ? 'srv656114.hstgr.cloud:3000/api/auth/login/teacher'
+      : 'srv656114.hstgr.cloud:3000/api/auth/login/customer';
 
     try {
       const response = await fetch(url, {

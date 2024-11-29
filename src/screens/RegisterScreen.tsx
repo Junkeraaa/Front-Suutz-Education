@@ -14,8 +14,8 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     const url = loginAsTeacher
-      ? 'http://localhost:3000/api/auth/register/teacher'
-      : 'http://localhost:3000/api/auth/register/customer';
+      ? 'srv656114.hstgr.cloud:3000/api/auth/register/teacher'
+      : 'srv656114.hstgr.cloud:3000/api/auth/register/customer';
 
       try {
         const response = await fetch(url, {
@@ -42,7 +42,7 @@ const LoginScreen = () => {
 
         if(dataRole == 'student'){
           try {
-            const response = await axios.post(`http://localhost:4000/wallet/create/${alunoId}`);
+            const response = await axios.post(`srv656114.hstgr.cloud:4000/wallet/create/${alunoId}`);
             console.log('rsposta criar carteira:', response.data); // Verifica o formato dos dados recebidos
             
         } catch (error) {

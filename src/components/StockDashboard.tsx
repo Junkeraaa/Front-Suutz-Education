@@ -38,7 +38,7 @@ ChartJS.register(
   Legend
 );
 
-const socket = io("http://localhost:5000");
+const socket = io("srv656114.hstgr.cloud:5000");
 
 const StockDashboard = ({ stockId }) => {
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ const StockDashboard = ({ stockId }) => {
   useEffect(() => {
     const fetchAcao = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/stocks/${stockId}`);
+        const response = await axios.get(`srv656114.hstgr.cloud:4000/stocks/${stockId}`);
         console.log('Dados recebidos:', response.data);
 
         const data = response.data.data;
