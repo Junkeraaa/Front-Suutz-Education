@@ -35,7 +35,7 @@ const LoginScreen = () => {
         sessionStorage.setItem('role', data.role);
         sessionStorage.setItem('id', data.id);
 
-        navigate('/myClasses'); // Redirecionar para a nova página
+        navigate('/brokerOficial'); // Redirecionar para a nova página
       } else {
         setShowError(true);
         setTimeout(() => setShowError(false), 2000); // Esconde a mensagem de erro após 2 segundos
