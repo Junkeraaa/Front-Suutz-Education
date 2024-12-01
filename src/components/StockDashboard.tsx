@@ -58,33 +58,26 @@ const StockDashboard = ({ stockId }) => {
     };
   }, [stockId]);
 
-  useEffect(() => {
-    socket.on('responseForData', (data: { price: number; at: Date }[]) => {
-      const formattedData: ChartData<'line'> = {
-        labels: data.map((item) => item.at.toString()),
-        datasets: [
-          {
-            label: '',
-            data: data.map((item) => item.price),
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0,
-          },
-        ],
-      };
-
-      setChartData(formattedData);
-    });
-
-    // Remover listener ao desmontar o componente
-    return () => {
-      socket.off('responseForData');
+  socket.on('responseForData', (data: { price: number; at: Date }[]) => {
+    const formattedData: ChartData<'line'> = {
+      labels: data.map((item) => item.at.toString()),
+      datasets: [
+        {
+          label: '',
+          data: data.map((item) => item.price),
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0,
+        },
+      ],
     };
-  }, []);
+    setChartData(formattedData);
+  });
 
   useEffect(() => {
     const fetchAcao = async () => {
       try {
+        socket.emit('requestForData', stockId);
         const response = await axios.get(`http://srv656114.hstgr.cloud:4000/stocks/${stockId}`);
         console.log('Dados recebidos:', response.data);
 
@@ -98,6 +91,7 @@ const StockDashboard = ({ stockId }) => {
       }
     };
 
+    
     fetchAcao();
     const intervalId = setInterval(fetchAcao, 3000);
 

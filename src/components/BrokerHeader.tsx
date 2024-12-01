@@ -7,6 +7,7 @@ import PersonalBalance from './PersonalBalance';
 
 const BrokerHeader = ({tipo}) => {
   const role = sessionStorage.getItem('role')
+  const nome = sessionStorage.getItem(`name`)
   const showPersonalBalance = role === 'student'; 
   if(tipo == 'brokerHeader'){
     return (
@@ -17,7 +18,7 @@ const BrokerHeader = ({tipo}) => {
                   <div style={styles.header}>
                   <div>Broker - Oficial</div>
                   {/* broker aula  */}
-                  <div style={styles.textUser}>Bem vindo! Luis</div>
+                  <div style={styles.textUser}>Bem vindo! {nome}</div>
                   </div>
                   <SideBarBrokerHeader/>
                   <div style={styles.headerRight}>
@@ -70,7 +71,7 @@ const BrokerHeader = ({tipo}) => {
                   <div style={styles.header}>
                   <div>Minha carteira</div>
                   {/* broker aula  */}
-                  <div style={styles.textUser}>Bem vindo! Luis</div>
+                  <div style={styles.textUser}>Bem vindo! {nome}</div>
                   </div>
                 </div>
                 {showPersonalBalance && <PersonalBalance />} 

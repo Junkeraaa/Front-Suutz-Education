@@ -49,7 +49,7 @@ const PersonalBalance = () => {
   return (
     <div style={styles.personalBalance}>
       <img src={personalBalanceLogo} alt="Personal Balance Logo" style={styles.personalBalanceLogo} />
-      <p style={styles.p}>R${balance.totalMoneyAmount}</p>
+      <p style={styles.p}>R${balance.totalMoneyAmount.toFixed(2)}</p>
     </div>
   );
 };

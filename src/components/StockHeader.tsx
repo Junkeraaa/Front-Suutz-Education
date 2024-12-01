@@ -21,6 +21,7 @@ const StockHeader = ({ index, stockId }) => {
   const walletId = sessionStorage.getItem('walletId')
   const [stockWallet, setStockWallet] = useState(0);
   const [stockBalance, setStockBalance] = useState(null); // Estado para armazenar o saldo
+  const nome = sessionStorage.getItem(`name`)
 
   const imagens = {
     img0: yduqsLogo,
@@ -177,8 +178,8 @@ const StockHeader = ({ index, stockId }) => {
             <div style={styles.headerLeft}>
               <div style={styles.headerStock}>
                 <img src={imagens[`img${index}`]} alt="Logo" style={styles.acaoLogo} />
-                <div style={styles.textUser}>Bem vindo! Lui</div>
-              </div>
+                <div style={styles.textUser}>Bem vindo! {nome}</div>
+              </div> 
               <div style={styles.buySellButtons}>
                 <button style={styles.btnBuy} onClick={toggleModal}>
                   Buy
@@ -206,7 +207,7 @@ const StockHeader = ({ index, stockId }) => {
               <h2>Buy</h2>
               <div>Price: R$ {acao.currentPrice}</div>
               <input
-                type="number"
+                type="text"
                 style={styles.inputField}
                 placeholder="Enter quantity"
                 value={buyQuantity}
@@ -223,7 +224,7 @@ const StockHeader = ({ index, stockId }) => {
               <h2>Sell</h2>
               <div>Price: R$ {acao.currentPrice}</div>
               <input
-                type="number"
+                type="text"
                 style={styles.inputField}
                 placeholder="Enter quantity"
                 value={sellQuantity}
