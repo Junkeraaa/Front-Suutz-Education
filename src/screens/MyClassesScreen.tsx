@@ -78,7 +78,7 @@ const MyClassesScreen = () => {
                   <p>{classItem.nameProfessor}</p> {/* Nome do professor */}
                 </div>
                 <div style={styles.classFooter}>
-                  <div>{classItem.availableLessons} aulas disponíveis</div> {/* Número de aulas disponíveis */}
+                  <div>{classItem.availableLessons == 1 ? `${classItem.availableLessons} aula disponível` : `${classItem.availableLessons} aulas disponíveis`}</div>
                   <div>{classItem.membersClassroom} alunos</div> {/* Número de alunos */}
                 </div>
               </div>
