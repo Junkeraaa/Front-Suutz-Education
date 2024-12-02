@@ -1,7 +1,9 @@
-import '../global.css'; 
+import '../global.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Importação das imagens
 import yduqsLogo from '../assets/svg/yduqsLogo.svg';
 import ultraparLogo from '../assets/svg/ultraparLogo.svg';
 import csnLogo from '../assets/svg/csnLogo.svg';
@@ -25,9 +27,8 @@ const BrokerDashboard = () => {
         const fetchAcoes = async () => {
             try {
                 const response = await axios.get('http://srv656114.hstgr.cloud:4000/stocks');
-                console.log('Dados recebidos:', response.data); // Verifica o formato dos dados recebidos
+                console.log('Dados recebidos:', response.data);
 
-                // Ajuste se necessário com base na estrutura da resposta da API
                 const data = response.data.data || response.data;
 
                 if (Array.isArray(data)) {
@@ -43,47 +44,42 @@ const BrokerDashboard = () => {
             }
         };
 
-        // Buscar dados inicialmente
         fetchAcoes();
 
         const intervalId = setInterval(fetchAcoes, 3000);
 
-        // Limpar intervalo ao desmontar o componente
         return () => clearInterval(intervalId);
     }, []);
 
     useEffect(() => {
-        // Timer para exibir o componente após um atraso de 2 segundos
         const timer = setTimeout(() => {
             setDisplayComponent(true);
-        }, 2000); // Ajuste o tempo conforme necessário
+        }, 2000);
 
-        // Limpar o timer ao desmontar o componente
         return () => clearTimeout(timer);
     }, []);
 
     const imagens = {
-        img1: yduqsLogo,
-        img2: csnLogo,
-        img3: ultraparLogo,
-        img4: petrobrasLogo,
-        img5: irbLogo,
-        img6: cognaLogo,
-        img7: nubankLogo,
-        img8: bbLogo,
-        img9: petrobrasLogo,
-        img10: cyrelaLogo,
-        img11: bradescoLogo,
-        img12: brfLogo
+        ultraparLogo: ultraparLogo,
+        yduqsLogo: yduqsLogo,
+        csnLogo: csnLogo,
+        petrobrasLogo: petrobrasLogo,
+        irbLogo: irbLogo,
+        nubankLogo: nubankLogo,
+        cognaLogo: cognaLogo,
+        bbLogo: bbLogo,
+        cyrelaLogo: cyrelaLogo,
+        bradescoLogo: bradescoLogo,
+        brfLogo: brfLogo,
     };
 
     const getRandomPercentage = () => {
-        return (Math.random() * 20 - 10).toFixed(2); // Gera um número entre -10 e 10 e formata com 2 casas decimais
+        return (Math.random() * 20 - 10).toFixed(2);
     };
 
     const getPercentageStyle = (percentage) => {
         return {
-            color: parseFloat(percentage) < 0 ? 'red' : 'green' // Defina a cor com base no valor
+            color: parseFloat(percentage) < 0 ? 'red' : 'green',
         };
     };
 
@@ -97,20 +93,22 @@ const BrokerDashboard = () => {
                 <div style={styles.loading}>{error}</div>
             ) : acoes.length > 0 ? (
                 acoes.map((acao, index) => (
-                    <div key={index} style={styles.cardAcao}
-                    onClick={() => navigate(`/insideStock/${index}/${acao.id}`)}
+                    <div
+                        key={acao.id}
+                        style={styles.cardAcao}
+                        onClick={() => navigate(`/insideStock/${index}/${acao.id}`)}
                     >
                         <div style={styles.acaoHeader}>
-                            <img src={imagens[`img${index + 1}`]} alt="" style={styles.acaoLogo} />
+                            <img
+                                src={imagens[acao.iconUrl] || ultraparLogo} // Fallback para uma imagem padrão
+                                alt={acao.name}
+                                style={styles.acaoLogo}
+                            />
                             {acao.name}
                         </div>
                         <div style={styles.acaoBody}>
-                            <div style={styles.valueNow}>
-                                value now
-                            </div>
-                            <div style={styles.value}>
-                                R${acao.currentPrice.toFixed(2)} 
-                            </div>
+                            <div style={styles.valueNow}>value now</div>
+                            <div style={styles.value}>R${acao.currentPrice.toFixed(2)}</div>
                         </div>
                         <div style={styles.acaoFooter}>
                             <span style={getPercentageStyle(getRandomPercentage())}>
