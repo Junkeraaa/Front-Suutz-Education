@@ -130,7 +130,7 @@ const StockDashboard = ({ stockId }) => {
             {acao.currentPrice}
           </div>
         </div>
-        <div style={styles.boxMin}>
+        {/* <div style={styles.boxMin}>
           Min day
           <div style={styles.boxVal}>
             {acao.minPriceDay}
@@ -141,7 +141,7 @@ const StockDashboard = ({ stockId }) => {
           <div style={styles.boxVal}>
             {acao.maxPriceDay}
           </div>
-        </div>
+        </div> */}
         
       </div>
       <div style={styles.dashInfos}>
@@ -241,7 +241,7 @@ const StockDashboard = ({ stockId }) => {
             )}
           </div>
         </div>
-        <div style={styles.stockInfos}>
+        {/* <div style={styles.stockInfos}>
           <div>Infos</div>
           <div style={styles.dados}>
             <div>
@@ -315,7 +315,7 @@ const StockDashboard = ({ stockId }) => {
               Valor
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -384,6 +384,7 @@ const styles = {
   stockGraph: {
     display: 'flex',
     flexDirection:"column",
+    marginLeft:"20em",
     width: '100%',
     height: '58vh',
   },

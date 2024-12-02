@@ -129,7 +129,8 @@ const StockHeader = ({ index, stockId }) => {
       
       
       setStockBalance(data.data); // Atualiza o estado com o saldo retornado
-
+      setShowModal(false)
+      window.location.reload()
       console.log('data da wallet', stockBalance)
     } catch (error) {
       console.error('Erro ao comprar acao:', error);
@@ -163,7 +164,8 @@ const StockHeader = ({ index, stockId }) => {
       
       
       setStockBalance(data.data); // Atualiza o estado com o saldo retornado
-
+      setShowModal(false)
+      window.location.reload()
       console.log('data da wallet', stockBalance)
     } catch (error) {
       console.error('Erro ao comprar acao:', error);
@@ -390,7 +392,8 @@ const styles = {
 
     buySellButtons:{
       display:"flex",
-      flexDirection:'column'
+      flexDirection:'column',
+      marginLeft:"1em"
     },
 
 
